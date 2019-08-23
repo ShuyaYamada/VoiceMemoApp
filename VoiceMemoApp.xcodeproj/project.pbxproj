@@ -3,18 +3,23 @@
 	archiveVersion = 1;
 	classes = {
 	};
-	objectVersion = 50;
+	objectVersion = 51;
 	objects = {
 
 /* Begin PBXBuildFile section */
+		65A658ECFDCAC2AC7B35EE50 /* Pods_VoiceMemoApp.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 2E0BAFAD6DDF6138B156A24D /* Pods_VoiceMemoApp.framework */; };
 		9E976336230F8D5600EBAED0 /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9E976335230F8D5600EBAED0 /* AppDelegate.swift */; };
 		9E976338230F8D5600EBAED0 /* ViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9E976337230F8D5600EBAED0 /* ViewController.swift */; };
 		9E97633B230F8D5600EBAED0 /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 9E976339230F8D5600EBAED0 /* Main.storyboard */; };
 		9E97633D230F8D5700EBAED0 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 9E97633C230F8D5700EBAED0 /* Assets.xcassets */; };
 		9E976340230F8D5700EBAED0 /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 9E97633E230F8D5700EBAED0 /* LaunchScreen.storyboard */; };
+		9E976348230F8EC900EBAED0 /* AudioData.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9E976347230F8EC900EBAED0 /* AudioData.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
+		15C941620CF31E813E2D8500 /* Pods-VoiceMemoApp.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-VoiceMemoApp.release.xcconfig"; path = "Target Support Files/Pods-VoiceMemoApp/Pods-VoiceMemoApp.release.xcconfig"; sourceTree = "<group>"; };
+		2E0BAFAD6DDF6138B156A24D /* Pods_VoiceMemoApp.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_VoiceMemoApp.framework; sourceTree = BUILT_PRODUCTS_DIR; };
+		42BAB9AEDBAD9DBAE7B1D31C /* Pods-VoiceMemoApp.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-VoiceMemoApp.debug.xcconfig"; path = "Target Support Files/Pods-VoiceMemoApp/Pods-VoiceMemoApp.debug.xcconfig"; sourceTree = "<group>"; };
 		9E976332230F8D5600EBAED0 /* VoiceMemoApp.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = VoiceMemoApp.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		9E976335230F8D5600EBAED0 /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
 		9E976337230F8D5600EBAED0 /* ViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ViewController.swift; sourceTree = "<group>"; };
@@ -22,6 +27,7 @@
 		9E97633C230F8D5700EBAED0 /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
 		9E97633F230F8D5700EBAED0 /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/LaunchScreen.storyboard; sourceTree = "<group>"; };
 		9E976341230F8D5700EBAED0 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
+		9E976347230F8EC900EBAED0 /* AudioData.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AudioData.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -29,17 +35,28 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				65A658ECFDCAC2AC7B35EE50 /* Pods_VoiceMemoApp.framework in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
 /* End PBXFrameworksBuildPhase section */
 
 /* Begin PBXGroup section */
+		33E9A7B4ED0CB2318CC83FE2 /* Frameworks */ = {
+			isa = PBXGroup;
+			children = (
+				2E0BAFAD6DDF6138B156A24D /* Pods_VoiceMemoApp.framework */,
+			);
+			name = Frameworks;
+			sourceTree = "<group>";
+		};
 		9E976329230F8D5600EBAED0 = {
 			isa = PBXGroup;
 			children = (
 				9E976334230F8D5600EBAED0 /* VoiceMemoApp */,
 				9E976333230F8D5600EBAED0 /* Products */,
+				C756854BA79431AE5133BF0B /* Pods */,
+				33E9A7B4ED0CB2318CC83FE2 /* Frameworks */,
 			);
 			sourceTree = "<group>";
 		};
@@ -56,12 +73,22 @@
 			children = (
 				9E976335230F8D5600EBAED0 /* AppDelegate.swift */,
 				9E976337230F8D5600EBAED0 /* ViewController.swift */,
+				9E976347230F8EC900EBAED0 /* AudioData.swift */,
 				9E976339230F8D5600EBAED0 /* Main.storyboard */,
 				9E97633C230F8D5700EBAED0 /* Assets.xcassets */,
 				9E97633E230F8D5700EBAED0 /* LaunchScreen.storyboard */,
 				9E976341230F8D5700EBAED0 /* Info.plist */,
 			);
 			path = VoiceMemoApp;
+			sourceTree = "<group>";
+		};
+		C756854BA79431AE5133BF0B /* Pods */ = {
+			isa = PBXGroup;
+			children = (
+				42BAB9AEDBAD9DBAE7B1D31C /* Pods-VoiceMemoApp.debug.xcconfig */,
+				15C941620CF31E813E2D8500 /* Pods-VoiceMemoApp.release.xcconfig */,
+			);
+			path = Pods;
 			sourceTree = "<group>";
 		};
 /* End PBXGroup section */
@@ -71,9 +98,11 @@
 			isa = PBXNativeTarget;
 			buildConfigurationList = 9E976344230F8D5700EBAED0 /* Build configuration list for PBXNativeTarget "VoiceMemoApp" */;
 			buildPhases = (
+				8A88530B3BDD5F783A32060F /* [CP] Check Pods Manifest.lock */,
 				9E97632E230F8D5600EBAED0 /* Sources */,
 				9E97632F230F8D5600EBAED0 /* Frameworks */,
 				9E976330230F8D5600EBAED0 /* Resources */,
+				F93C4147D2B129F2E632E398 /* [CP] Embed Pods Frameworks */,
 			);
 			buildRules = (
 			);
@@ -130,11 +159,54 @@
 		};
 /* End PBXResourcesBuildPhase section */
 
+/* Begin PBXShellScriptBuildPhase section */
+		8A88530B3BDD5F783A32060F /* [CP] Check Pods Manifest.lock */ = {
+			isa = PBXShellScriptBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			inputFileListPaths = (
+			);
+			inputPaths = (
+				"${PODS_PODFILE_DIR_PATH}/Podfile.lock",
+				"${PODS_ROOT}/Manifest.lock",
+			);
+			name = "[CP] Check Pods Manifest.lock";
+			outputFileListPaths = (
+			);
+			outputPaths = (
+				"$(DERIVED_FILE_DIR)/Pods-VoiceMemoApp-checkManifestLockResult.txt",
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+			shellPath = /bin/sh;
+			shellScript = "diff \"${PODS_PODFILE_DIR_PATH}/Podfile.lock\" \"${PODS_ROOT}/Manifest.lock\" > /dev/null\nif [ $? != 0 ] ; then\n    # print error to STDERR\n    echo \"error: The sandbox is not in sync with the Podfile.lock. Run 'pod install' or update your CocoaPods installation.\" >&2\n    exit 1\nfi\n# This output is used by Xcode 'outputs' to avoid re-running this script phase.\necho \"SUCCESS\" > \"${SCRIPT_OUTPUT_FILE_0}\"\n";
+			showEnvVarsInLog = 0;
+		};
+		F93C4147D2B129F2E632E398 /* [CP] Embed Pods Frameworks */ = {
+			isa = PBXShellScriptBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			inputFileListPaths = (
+				"${PODS_ROOT}/Target Support Files/Pods-VoiceMemoApp/Pods-VoiceMemoApp-frameworks-${CONFIGURATION}-input-files.xcfilelist",
+			);
+			name = "[CP] Embed Pods Frameworks";
+			outputFileListPaths = (
+				"${PODS_ROOT}/Target Support Files/Pods-VoiceMemoApp/Pods-VoiceMemoApp-frameworks-${CONFIGURATION}-output-files.xcfilelist",
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+			shellPath = /bin/sh;
+			shellScript = "\"${PODS_ROOT}/Target Support Files/Pods-VoiceMemoApp/Pods-VoiceMemoApp-frameworks.sh\"\n";
+			showEnvVarsInLog = 0;
+		};
+/* End PBXShellScriptBuildPhase section */
+
 /* Begin PBXSourcesBuildPhase section */
 		9E97632E230F8D5600EBAED0 /* Sources */ = {
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				9E976348230F8EC900EBAED0 /* AudioData.swift in Sources */,
 				9E976338230F8D5600EBAED0 /* ViewController.swift in Sources */,
 				9E976336230F8D5600EBAED0 /* AppDelegate.swift in Sources */,
 			);
@@ -280,6 +352,7 @@
 		};
 		9E976345230F8D5700EBAED0 /* Debug */ = {
 			isa = XCBuildConfiguration;
+			baseConfigurationReference = 42BAB9AEDBAD9DBAE7B1D31C /* Pods-VoiceMemoApp.debug.xcconfig */;
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				CODE_SIGN_STYLE = Automatic;
@@ -292,12 +365,13 @@
 				PRODUCT_BUNDLE_IDENTIFIER = com.ShuyaYamada.VoiceMemoApp;
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				SWIFT_VERSION = 5.0;
-				TARGETED_DEVICE_FAMILY = "1,2";
+				TARGETED_DEVICE_FAMILY = 1;
 			};
 			name = Debug;
 		};
 		9E976346230F8D5700EBAED0 /* Release */ = {
 			isa = XCBuildConfiguration;
+			baseConfigurationReference = 15C941620CF31E813E2D8500 /* Pods-VoiceMemoApp.release.xcconfig */;
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				CODE_SIGN_STYLE = Automatic;
@@ -310,7 +384,7 @@
 				PRODUCT_BUNDLE_IDENTIFIER = com.ShuyaYamada.VoiceMemoApp;
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				SWIFT_VERSION = 5.0;
-				TARGETED_DEVICE_FAMILY = "1,2";
+				TARGETED_DEVICE_FAMILY = 1;
 			};
 			name = Release;
 		};
