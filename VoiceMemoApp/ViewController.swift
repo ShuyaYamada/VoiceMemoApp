@@ -28,15 +28,17 @@ class ViewController: UIViewController, UITableViewDelegate, UITableViewDataSour
     //START---Start Record and Stop Record---
     @IBAction func record(_ sender: Any) {
         if audioRecorder == nil {
-            //audioDataを作成&セーブ(録音データはaudioDataのdateで識別するため)
+            //audioDataを作成
             let audioData = AudioData()
             audioData.date = Date()
-            try! realm.write {
-                realm.add(audioData.self)
+            //audioDataが1つ以上ならidの処理を行う
+            let allAudioDatas = realm.objects(AudioData.self)
+            if allAudioDatas.count != 0 {
+                audioData.id = allAudioDatas.max(ofProperty: "id")! + 1
             }
             
             //audioRecorderに必要なURL
-            let failName = getURL().appendingPathComponent("\(audioData.date).m4a")
+            let failName = getURL().appendingPathComponent("\(audioData.id).m4a")
             //audioRecorderに必要なSettings
             let settings = [
                 AVFormatIDKey: Int(kAudioFormatMPEG4AAC),
@@ -48,9 +50,13 @@ class ViewController: UIViewController, UITableViewDelegate, UITableViewDataSour
             //Record Start
             do {
                 //audioRecorderをインスタンス化
-                audioRecorder = try! AVAudioRecorder(url: failName, settings: settings)
+                audioRecorder = try AVAudioRecorder(url: failName, settings: settings)
                 audioRecorder.delegate = self
                 audioRecorder.record()
+                //audioDataを保存
+                try! realm.write {
+                    realm.add(audioData.self)
+                }
                 //ボタンのimageを変更する
                 buttonImage.setImage(UIImage(named: "stopBTN"), for: .normal)
             } catch {
@@ -82,7 +88,7 @@ class ViewController: UIViewController, UITableViewDelegate, UITableViewDataSour
 
     //START---getURL---
     func getURL() -> URL {
-        //録音データの保存先URLの先頭部分。 このURL+AudioDataのdateで識別する。
+        //録音データの保存先URLの先頭部分。 このURL+AudioDataのidで識別する。
         let path = FileManager.default.urls(for: .documentDirectory, in: .userDomainMask)
         let url = path[0]
         return url
@@ -119,12 +125,12 @@ class ViewController: UIViewController, UITableViewDelegate, UITableViewDataSour
         //audioDataを取得
         let audioData = AudioDataArray[indexPath.row]
         //録音データの保存されてるURLを取得
-        let url = getURL().appendingPathComponent("\(audioData.date).m4a")
+        let url = getURL().appendingPathComponent("\(audioData.id).m4a")
         
         //録音データ出力
         do {
             //aduioPlayerのインスタンス化
-            audioPlayer = try! AVAudioPlayer(contentsOf: url)
+            audioPlayer = try AVAudioPlayer(contentsOf: url)
             audioPlayer.play()
         } catch {
             print("DEBUG_PRINT: 出力失敗")
@@ -139,7 +145,7 @@ class ViewController: UIViewController, UITableViewDelegate, UITableViewDataSour
             //audioDataを取得
             let audioData = AudioDataArray[indexPath.row]
             //録音データの保存されてるURLを取得
-            let url = getURL().appendingPathComponent("\(audioData.date).m4a")
+            let url = getURL().appendingPathComponent("\(audioData.id).m4a")
             
             //録音データを削除
             try! FileManager.default.removeItem(at: url)

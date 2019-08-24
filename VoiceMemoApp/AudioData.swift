@@ -10,9 +10,15 @@ import Foundation
 import RealmSwift
 
 class AudioData: Object {
-    //録音データを識別するURLに使う日付 (録音データ自体はDirectoryに保存)
+    //primaryKeyにするid
+    @objc dynamic var id = 0
+    
     @objc dynamic var date = Date()
     
-    //他のプロパティも追加予定
+     //他のプロパティも追加予定
     
+    
+    override static func primaryKey() -> String {
+        return "id"
+    }
 }
