@@ -14,6 +14,8 @@
 		9E97633D230F8D5700EBAED0 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 9E97633C230F8D5700EBAED0 /* Assets.xcassets */; };
 		9E976340230F8D5700EBAED0 /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 9E97633E230F8D5700EBAED0 /* LaunchScreen.storyboard */; };
 		9E976348230F8EC900EBAED0 /* AudioData.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9E976347230F8EC900EBAED0 /* AudioData.swift */; };
+		9ED6A1542312959200D44682 /* CustomCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9ED6A1522312959200D44682 /* CustomCell.swift */; };
+		9ED6A1552312959200D44682 /* CustomCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = 9ED6A1532312959200D44682 /* CustomCell.xib */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -28,6 +30,8 @@
 		9E97633F230F8D5700EBAED0 /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/LaunchScreen.storyboard; sourceTree = "<group>"; };
 		9E976341230F8D5700EBAED0 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		9E976347230F8EC900EBAED0 /* AudioData.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AudioData.swift; sourceTree = "<group>"; };
+		9ED6A1522312959200D44682 /* CustomCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CustomCell.swift; sourceTree = "<group>"; };
+		9ED6A1532312959200D44682 /* CustomCell.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = CustomCell.xib; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -75,6 +79,8 @@
 				9E976337230F8D5600EBAED0 /* ViewController.swift */,
 				9E976347230F8EC900EBAED0 /* AudioData.swift */,
 				9E976339230F8D5600EBAED0 /* Main.storyboard */,
+				9ED6A1522312959200D44682 /* CustomCell.swift */,
+				9ED6A1532312959200D44682 /* CustomCell.xib */,
 				9E97633C230F8D5700EBAED0 /* Assets.xcassets */,
 				9E97633E230F8D5700EBAED0 /* LaunchScreen.storyboard */,
 				9E976341230F8D5700EBAED0 /* Info.plist */,
@@ -153,6 +159,7 @@
 			files = (
 				9E976340230F8D5700EBAED0 /* LaunchScreen.storyboard in Resources */,
 				9E97633D230F8D5700EBAED0 /* Assets.xcassets in Resources */,
+				9ED6A1552312959200D44682 /* CustomCell.xib in Resources */,
 				9E97633B230F8D5600EBAED0 /* Main.storyboard in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
@@ -208,6 +215,7 @@
 			files = (
 				9E976348230F8EC900EBAED0 /* AudioData.swift in Sources */,
 				9E976338230F8D5600EBAED0 /* ViewController.swift in Sources */,
+				9ED6A1542312959200D44682 /* CustomCell.swift in Sources */,
 				9E976336230F8D5600EBAED0 /* AppDelegate.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;

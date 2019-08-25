@@ -20,6 +20,9 @@ class AudioData: Object {
     //セルの並べ替えのための値
     @objc dynamic var order = 0
     
+    //cellのexpandViewをコントロールするための値
+    @objc dynamic var isClosed = true
+    
      //他のプロパティも追加予定
     
     
