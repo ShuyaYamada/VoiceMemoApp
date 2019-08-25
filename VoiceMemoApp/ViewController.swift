@@ -67,6 +67,8 @@ class ViewController: UIViewController, UITableViewDelegate, UITableViewDataSour
             //Record Stop
             audioRecorder.stop()
             audioRecorder = nil
+            //inputAlertを表示してaudioDataのtitleを入力させる
+            inputAlert()
             //tableViewをリロード
             tableView.reloadData()
             //ボタンのimageを変更する
@@ -97,9 +99,44 @@ class ViewController: UIViewController, UITableViewDelegate, UITableViewDataSour
     
     //START---inputAlert---
     func inputAlert() {
-        
+        if AudioDataArray.count != 0 {
+            //idが最大のaudioData(最新のaudioData)を取得
+            let audioData = maxIdAudioData()
+            //alert作成
+            let alert = UIAlertController(title: "タイトルを入力", message: "", preferredStyle: .alert)
+            alert.addTextField { (textField) in
+                textField.placeholder = "新規録音"
+            }
+            alert.addAction(UIAlertAction(title: "OK", style: .default, handler: { (_) in
+                let textField = alert.textFields![0]
+                //audioDataを保存
+                try! self.realm.write {
+                    if textField.text == "" {
+                        audioData.titile = "新規録音#\(self.AudioDataArray.count)"
+                    } else {
+                        audioData.titile = textField.text!
+                    }
+                    self.tableView.reloadData()
+                }
+            }))
+            present(alert, animated: true, completion: nil)
+        } else {
+            displayAlert(title: "録音なし", message: "")
+        }
     }
-    
+    //START---maxIdAudioData---
+    func maxIdAudioData() -> AudioData {
+        var audioData: AudioData!
+        var maxId = 0
+        for ad in AudioDataArray {
+            if maxId <= ad.id {
+                maxId = ad.id
+                audioData = ad
+            }
+        }
+        return audioData
+    }
+    //END---maxIdAudioData---
     
     //START---displayAlert---
     func displayAlert(title: String, message: String) {
