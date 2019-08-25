@@ -19,7 +19,7 @@ class ViewController: UIViewController, UITableViewDelegate, UITableViewDataSour
     
     //Realmと録音データの配列
     let realm = try! Realm()
-    var AudioDataArray = try! Realm().objects(AudioData.self).sorted(byKeyPath: "date", ascending: false)
+    var AudioDataArray = try! Realm().objects(AudioData.self).sorted(byKeyPath: "order", ascending: false)
 
     //IBOutlet
     @IBOutlet weak var buttonImage: UIButton!
@@ -31,10 +31,11 @@ class ViewController: UIViewController, UITableViewDelegate, UITableViewDataSour
             //audioDataを作成
             let audioData = AudioData()
             audioData.date = Date()
-            //audioDataが1つ以上ならidの処理を行う
+            //audioDataが1つ以上ならidの処理を行う  -追加-orderもorderの最大値+1を
             let allAudioDatas = realm.objects(AudioData.self)
             if allAudioDatas.count != 0 {
                 audioData.id = allAudioDatas.max(ofProperty: "id")! + 1
+                audioData.order = allAudioDatas.max(ofProperty: "order")! + 1
             }
             
             //audioRecorderに必要なURL
@@ -81,6 +82,11 @@ class ViewController: UIViewController, UITableViewDelegate, UITableViewDataSour
     //START---viewDidLoad---
     override func viewDidLoad() {
         super.viewDidLoad()
+        
+        //navigationControllerの設定
+        self.navigationController?.isToolbarHidden = false
+        navigationItem.title = "VoiceMemo"
+        navigationItem.rightBarButtonItem = editButtonItem
 
         tableView.delegate = self
         tableView.dataSource = self
@@ -182,9 +188,17 @@ class ViewController: UIViewController, UITableViewDelegate, UITableViewDataSour
         }
         //選択状態の解除
         tableView.deselectRow(at: indexPath, animated: true)
+        print("DEBUG_PRINT: ID\(audioData.id), order\(audioData.order)")
     }
     func tableView(_ tableView: UITableView, editingStyleForRowAt indexPath: IndexPath) -> UITableViewCell.EditingStyle {
         return .delete
+    }
+
+    //END---TableView系メソッド---
+    //START---TableView編集系メソッド---
+    override func setEditing(_ editing: Bool, animated: Bool) {
+        super.setEditing(editing, animated: true)
+        tableView.isEditing = editing
     }
     func tableView(_ tableView: UITableView, commit editingStyle: UITableViewCell.EditingStyle, forRowAt indexPath: IndexPath) {
         if editingStyle == .delete {
@@ -192,7 +206,6 @@ class ViewController: UIViewController, UITableViewDelegate, UITableViewDataSour
             let audioData = AudioDataArray[indexPath.row]
             //録音データの保存されてるURLを取得
             let url = getURL().appendingPathComponent("\(audioData.id).m4a")
-            
             //録音データを削除
             try! FileManager.default.removeItem(at: url)
             //realmのaudioDataを削除
@@ -202,7 +215,31 @@ class ViewController: UIViewController, UITableViewDelegate, UITableViewDataSour
             }
         }
     }
-    //END---TableView系メソッド---
-    
+    //並び替え系
+    func tableView(_ tableView: UITableView, canMoveRowAt indexPath: IndexPath) -> Bool {
+        return true
+    }
+    func tableView(_ tableView: UITableView, moveRowAt sourceIndexPath: IndexPath, to destinationIndexPath: IndexPath) {
+        try! realm.write {
+            let sourceAD: AudioData = AudioDataArray[sourceIndexPath.row]
+            let destinationAD: AudioData = AudioDataArray[destinationIndexPath.row]
+            let destinationADOrder = destinationAD.order
+            
+            if sourceIndexPath.row < destinationIndexPath.row {
+                for index in sourceIndexPath.row...destinationIndexPath.row {
+                    let ad = AudioDataArray[index]
+                    ad.order += 1
+                }
+            } else {
+                for index in (destinationIndexPath.row..<sourceIndexPath.row).reversed() {
+                    let ad = AudioDataArray[index]
+                    ad.order -= 1
+                }
+            }
+            sourceAD.order = destinationADOrder
+        }
+    }
+    //EMD---TableView編集系メソッド---
+
 }
 

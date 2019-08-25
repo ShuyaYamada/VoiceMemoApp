@@ -17,6 +17,9 @@ class AudioData: Object {
     
     @objc dynamic var date = Date()
     
+    //セルの並べ替えのための値
+    @objc dynamic var order = 0
+    
      //他のプロパティも追加予定
     
     
