@@ -13,6 +13,8 @@ class AudioData: Object {
     //primaryKeyにするid
     @objc dynamic var id = 0
     
+    @objc dynamic var titile = "新規録音"
+    
     @objc dynamic var date = Date()
     
      //他のプロパティも追加予定

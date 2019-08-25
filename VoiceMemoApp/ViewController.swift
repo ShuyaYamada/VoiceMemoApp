@@ -95,6 +95,11 @@ class ViewController: UIViewController, UITableViewDelegate, UITableViewDataSour
     }
     //END---getURL---
     
+    //START---inputAlert---
+    func inputAlert() {
+        
+    }
+    
     
     //START---displayAlert---
     func displayAlert(title: String, message: String) {
@@ -113,12 +118,14 @@ class ViewController: UIViewController, UITableViewDelegate, UITableViewDataSour
         let cell = tableView.dequeueReusableCell(withIdentifier: "Cell", for: indexPath)
         //audioDataを取得
         let audioData = AudioDataArray[indexPath.row]
+        //titleをcellに表示
+        cell.textLabel?.text = audioData.titile
         //日時の表示形式を設定
         let formatter = DateFormatter()
-        formatter.dateFormat = "yyyy-MM-dd HH:mm:s"
+        formatter.dateFormat = "yyyy-MM-dd"
         let dateString = formatter.string(from: audioData.date)
-        //cellのtextを日時に設定
-        cell.textLabel?.text = dateString
+        //日時をcellに表示
+        cell.detailTextLabel?.text = dateString
         return cell
     }
     func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
