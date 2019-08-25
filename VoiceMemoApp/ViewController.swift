@@ -180,6 +180,8 @@ class ViewController: UIViewController, UITableViewDelegate, UITableViewDataSour
             print("DEBUG_PRINT: 出力失敗")
             displayAlert(title: "Error", message: "Playing failed")
         }
+        //選択状態の解除
+        tableView.deselectRow(at: indexPath, animated: true)
     }
     func tableView(_ tableView: UITableView, editingStyleForRowAt indexPath: IndexPath) -> UITableViewCell.EditingStyle {
         return .delete
