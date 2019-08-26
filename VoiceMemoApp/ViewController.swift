@@ -220,7 +220,7 @@ extension ViewController: UITableViewDataSource {
         guard let cell = tableView.dequeueReusableCell(withIdentifier: "CustomCell", for: indexPath) as? CustomCell else {
             return UITableViewCell(frame: .zero)
         }
-        cell.setUp(delegate: self as! CustomCellDelegate, dataSource: AudioDataArray[indexPath.row])
+        cell.setUp(delegate: self as CustomCellDelegate, dataSource: AudioDataArray[indexPath.row])
         return cell
     }
 }
