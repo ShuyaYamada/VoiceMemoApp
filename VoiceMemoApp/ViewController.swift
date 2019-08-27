@@ -20,6 +20,12 @@ class ViewController: UIViewController {
     override func viewDidLoad() {
         super.viewDidLoad()
         
+        //navigationControllerの設定
+        self.navigationController?.isToolbarHidden = false
+        navigationItem.title = "VoiceMemo"
+        navigationItem.leftBarButtonItem = editButtonItem
+
+        
         tableView.dataSource = self
         tableView.delegate = self
     }
@@ -28,6 +34,46 @@ class ViewController: UIViewController {
         tableView.reloadData()
         super.viewWillAppear(animated)
     }
+    
+    //START---setEditing---
+    override func setEditing(_ editing: Bool, animated: Bool) {
+        super.setEditing(editing, animated: true)
+        tableView.isEditing = editing
+    }
+    //END---setEditiing---
+    
+    //START---TableViewCell削除---
+    func tableView(_ tableView: UITableView, commit editingStyle: UITableViewCell.EditingStyle, forRowAt indexPath: IndexPath) {
+        if editingStyle == .delete {
+            //memoDataを取得
+            let memoData = memoDataArray[indexPath.row]
+            
+            //録音データの保存されているURLを取得
+            if memoData.audioDatas.count != 0 {
+                for ad in memoData.audioDatas {
+                    let url = getURL().appendingPathComponent("\(ad.id).m4a")
+                    try! FileManager.default.removeItem(at: url)
+                    try! self.realm.write {
+                        realm.delete(ad)
+                    }
+                }
+            }
+            try! realm.write {
+                realm.delete(memoData)
+            }
+            tableView.deleteRows(at: [indexPath], with: .fade)
+            tableView.reloadData()
+        }
+    }
+    func getURL() -> URL {
+        let path = FileManager.default.urls(for: .documentDirectory, in: .userDomainMask)
+        let url = path[0]
+        return url
+    }
+    //END---TableViewCell削除---
+    
+    //START---TableViewCell---
+    
 }
 
 //START---TableViewDataSource---

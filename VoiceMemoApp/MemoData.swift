@@ -11,7 +11,7 @@ import RealmSwift
 
 class MemoData: Object {
     //PrimaryKey
-    @objc dynamic var id = 0
+    @objc dynamic var id = 10
     
     //並び替えに使う値
     @objc dynamic var order = 0
