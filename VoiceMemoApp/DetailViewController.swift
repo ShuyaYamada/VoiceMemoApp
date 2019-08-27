@@ -100,11 +100,14 @@ class DetailViewController: UIViewController, AVAudioRecorderDelegate, AVAudioPl
         self.navigationController?.isToolbarHidden = false
         navigationItem.title = "VoiceMemo"
         navigationItem.rightBarButtonItem = editButtonItem
+        
+        setUpKeyboardButton()
 
         tableView.delegate = self
         tableView.dataSource = self
         tableView.rowHeight = UITableView.automaticDimension
         registerCells()
+        titleTextField.delegate = self
         
         //ViewControllerから受け取ったmemoDataをUIに反映
         titleTextField.text = memoData.title
@@ -119,7 +122,12 @@ class DetailViewController: UIViewController, AVAudioRecorderDelegate, AVAudioPl
     override func viewWillDisappear(_ animated: Bool) {
         try! realm.write {
         //画面を離れるときにmemoDataを保存する
-            self.memoData.title = titleTextField.text!
+            if titleTextField.text == "" {
+            //titleTextFieldが空ならtitleに「新規MEMO」を追加する
+                self.memoData.title = "新規MEMO"
+            } else {
+                self.memoData.title = titleTextField.text!
+            }
             self.memoData.content = contentTextView.text
             self.realm.add(memoData)
         }
@@ -249,6 +257,28 @@ class DetailViewController: UIViewController, AVAudioRecorderDelegate, AVAudioPl
         tableView.reloadData()
     }
     //END---TableViewCell並べ替え---
+    //START---textView編集時にKeyboardにdoneボタンを表示する
+    func setUpKeyboardButton() {
+        // ツールバー生成
+        let toolBar = UIToolbar(frame: CGRect(x: 0, y: 0, width: 320, height: 40))
+        // スタイルを設定
+        toolBar.barStyle = UIBarStyle.default
+        // 画面幅に合わせてサイズを変更
+        toolBar.sizeToFit()
+        // 閉じるボタンを右に配置するためのスペース?
+        let spacer = UIBarButtonItem(barButtonSystemItem: UIBarButtonItem.SystemItem.flexibleSpace, target: self, action: nil)
+        // 閉じるボタン
+        let commitButton = UIBarButtonItem(barButtonSystemItem: UIBarButtonItem.SystemItem.done, target: self, action: #selector(commitButtonTapped))
+        // スペース、閉じるボタンを右側に配置
+        toolBar.items = [spacer, commitButton]
+        // textViewのキーボードにツールバーを設定
+        contentTextView.inputAccessoryView = toolBar
+    }
+    @objc func commitButtonTapped() {
+        self.view.endEditing(true)
+    }
+    //END---textView編集時にKeyboardにdoneボタンを表示する
+
 }
 
 //START---TableViewDataSource---
@@ -330,3 +360,10 @@ extension DetailViewController: CustomCellDelegate {
 }
 //END---CustomCellDelegate
 
+//
+extension DetailViewController: UITextFieldDelegate {
+    func textFieldShouldReturn(_ textField: UITextField) -> Bool {
+        textField.resignFirstResponder()
+        return true
+    }
+}
