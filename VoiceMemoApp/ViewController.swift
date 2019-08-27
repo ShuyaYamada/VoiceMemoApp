@@ -72,8 +72,32 @@ class ViewController: UIViewController {
     }
     //END---TableViewCell削除---
     
-    //START---TableViewCell---
-    
+    //START---TableViewCell並び替え---
+    func tableView(_ tableView: UITableView, canMoveRowAt indexPath: IndexPath) -> Bool {
+        return true
+    }
+    func tableView(_ tableView: UITableView, moveRowAt sourceIndexPath: IndexPath, to destinationIndexPath: IndexPath) {
+        let sourceMD = memoDataArray[sourceIndexPath.row]
+        let destinationMD = memoDataArray[destinationIndexPath.row]
+        let destinationMDOrder = destinationMD.order
+        
+        try! realm.write {
+            if sourceIndexPath.row < destinationIndexPath.row {
+                for index in sourceIndexPath.row...destinationIndexPath.row {
+                    let md = memoDataArray[index]
+                    md.order += 1
+                }
+            } else {
+                for index in (destinationIndexPath.row..<sourceIndexPath.row).reversed() {
+                    let md = memoDataArray[index]
+                    md.order -= 1
+                }
+            }
+            sourceMD.order = destinationMDOrder
+        }
+        tableView.reloadData()
+    }
+    //END---TableViewCell並び替え---
 }
 
 //START---TableViewDataSource---
