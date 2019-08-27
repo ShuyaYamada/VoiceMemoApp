@@ -10,15 +10,15 @@ import Foundation
 import RealmSwift
 
 class AudioData: Object {
-    //primaryKeyにするid
+    //PrimaryKey
     @objc dynamic var id = 0
+    
+    //セルの並べ替えのための値
+    @objc dynamic var order = 0
     
     @objc dynamic var titile = ""
     
     @objc dynamic var date = Date()
-    
-    //セルの並べ替えのための値
-    @objc dynamic var order = 0
     
     //cellのexpandViewをコントロールするための値
     @objc dynamic var isClosed = true
