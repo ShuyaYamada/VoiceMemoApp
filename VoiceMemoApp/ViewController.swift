@@ -25,7 +25,6 @@ class ViewController: UIViewController {
         navigationItem.title = "VoiceMemo"
         navigationItem.leftBarButtonItem = editButtonItem
 
-        
         tableView.dataSource = self
         tableView.delegate = self
     }

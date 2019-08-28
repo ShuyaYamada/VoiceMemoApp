@@ -16,6 +16,7 @@ class CustomCell: UITableViewCell {
     private var delegate: CustomCellDelegate?
     private var dataSource: AudioData?
     
+    
     @IBOutlet weak var titleLabel: UILabel!
     @IBOutlet weak var dateLabel: UILabel!
     @IBOutlet weak var playButton: UIButton!
@@ -40,9 +41,7 @@ class CustomCell: UITableViewCell {
     }
 
     @IBAction func handlePlayButton(_ sender: Any) {
-        if let title = dataSource?.titile {
-            delegate?.handlePlayButton(message: "\(title)のボタンを押しました")
-        }
+       
     }
     
 }

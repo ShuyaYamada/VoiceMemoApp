@@ -18,7 +18,7 @@ class MemoData: Object {
     
     //Memoの内容
     @objc dynamic var title = ""
-    @objc dynamic var content = ""
+    @objc dynamic var content = "メモを追加"
     var audioDatas = List<AudioData>()
     
     
