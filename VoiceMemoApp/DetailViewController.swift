@@ -334,8 +334,11 @@ extension DetailViewController: UITableViewDelegate {
 //END---TableViewDelegate---
 
 //START---CustomCellDelegate
+
+
 extension DetailViewController: CustomCellDelegate {
     func handlePlayButton(message: String) {
+        /*
         var audioData: AudioData?
         //cellのexpandViewが開いているAudioDataを取得する(開いているのが出力するものだから)
         for ad in memoData.audioDatas {
@@ -343,28 +346,7 @@ extension DetailViewController: CustomCellDelegate {
                 audioData = ad
             }
         }
-        if audioData != nil {
-            //録音データの保存されてるURLを取得
-            let url = getURL().appendingPathComponent("\(audioData!.id).m4a")
-            //録音データ出力
-            do {
-                //aduioPlayerのインスタンス化
-                audioPlayer = try AVAudioPlayer(contentsOf: url)
-                audioPlayer.play()
-            } catch {
-                print("DEBUG_PRINT: 出力失敗")
-                displayAlert(title: "Error", message: "Playing failed")
-            }
-        }
-    }
-    func audioPlayerDidFinishPlaying(_ player: AVAudioPlayer, successfully flag: Bool) {
-        var audioData: AudioData?
-        for ad in memoData.audioDatas {
-            if ad.isClosed == false {
-                audioData = ad
-            }
-        }
-        
+*/
     }
 }
 //END---CustomCellDelegate
