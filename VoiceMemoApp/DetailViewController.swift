@@ -357,6 +357,15 @@ extension DetailViewController: CustomCellDelegate {
             }
         }
     }
+    func audioPlayerDidFinishPlaying(_ player: AVAudioPlayer, successfully flag: Bool) {
+        var audioData: AudioData?
+        for ad in memoData.audioDatas {
+            if ad.isClosed == false {
+                audioData = ad
+            }
+        }
+        
+    }
 }
 //END---CustomCellDelegate
 
