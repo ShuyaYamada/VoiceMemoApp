@@ -102,10 +102,22 @@
                                         <nil key="textColor"/>
                                         <nil key="highlightedColor"/>
                                     </label>
+                                    <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="wSu-Yq-XKX">
+                                        <rect key="frame" x="254" y="50" width="46" height="30"/>
+                                        <constraints>
+                                            <constraint firstAttribute="height" constant="30" id="G7r-bT-mte"/>
+                                            <constraint firstAttribute="width" constant="46" id="SUB-9w-2aN"/>
+                                        </constraints>
+                                        <state key="normal" title="Button"/>
+                                        <connections>
+                                            <action selector="handleSpeedButton:" destination="KGk-i7-Jjw" eventType="touchUpInside" id="UGo-ZJ-iiY"/>
+                                        </connections>
+                                    </button>
                                 </subviews>
                                 <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                                 <constraints>
                                     <constraint firstItem="Seg-9R-bEZ" firstAttribute="leading" secondItem="02w-g4-PaK" secondAttribute="trailing" id="Jrg-xd-Kb7"/>
+                                    <constraint firstAttribute="trailing" secondItem="wSu-Yq-XKX" secondAttribute="trailing" id="Jt2-XC-0Nj"/>
                                     <constraint firstItem="02w-g4-PaK" firstAttribute="leading" secondItem="KBt-kT-vo3" secondAttribute="trailing" id="P1U-1k-zO3"/>
                                     <constraint firstAttribute="height" constant="80" id="Sum-yv-2SN"/>
                                     <constraint firstItem="511-ki-B5C" firstAttribute="centerY" secondItem="A0H-iN-1Y8" secondAttribute="centerY" id="VD6-do-3Gq"/>
@@ -118,6 +130,7 @@
                                     <constraint firstItem="CfP-KX-ssp" firstAttribute="leading" secondItem="A0H-iN-1Y8" secondAttribute="leading" id="hzF-ND-sIi"/>
                                     <constraint firstAttribute="trailing" secondItem="Seg-9R-bEZ" secondAttribute="trailing" id="iMU-5e-a60"/>
                                     <constraint firstAttribute="trailing" secondItem="CfP-KX-ssp" secondAttribute="trailing" id="pui-PK-FHv"/>
+                                    <constraint firstAttribute="bottom" secondItem="wSu-Yq-XKX" secondAttribute="bottom" id="sy8-aR-L6f"/>
                                     <constraint firstAttribute="bottom" secondItem="CfP-KX-ssp" secondAttribute="bottom" id="tqN-R8-ZCx"/>
                                     <constraint firstItem="511-ki-B5C" firstAttribute="centerX" secondItem="A0H-iN-1Y8" secondAttribute="centerX" id="w7y-Ra-NwL"/>
                                     <constraint firstItem="02w-g4-PaK" firstAttribute="top" secondItem="A0H-iN-1Y8" secondAttribute="top" constant="5" id="yF5-v7-Nw4"/>
@@ -141,6 +154,7 @@
                 <outlet property="expandView" destination="A0H-iN-1Y8" id="m1m-zt-Yp3"/>
                 <outlet property="playButton" destination="511-ki-B5C" id="chs-8t-tdZ"/>
                 <outlet property="playSlider" destination="02w-g4-PaK" id="x6e-ED-aYW"/>
+                <outlet property="speedButton" destination="wSu-Yq-XKX" id="Inh-Gx-hz5"/>
                 <outlet property="titleLabel" destination="afh-pd-jWV" id="2Ra-tb-hcJ"/>
             </connections>
             <point key="canvasLocation" x="137.68115942028987" y="139.95535714285714"/>

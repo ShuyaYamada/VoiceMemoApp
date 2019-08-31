@@ -27,6 +27,7 @@ class CustomCell: UITableViewCell, AVAudioPlayerDelegate {
     @IBOutlet weak var playSlider: UISlider!
     @IBOutlet weak var audioDurationLabel: UILabel!
     @IBOutlet weak var audioDurationProgressLabel: UILabel!
+    @IBOutlet weak var speedButton: UIButton!
     @IBOutlet weak var expandView: UIView!
     
     override func awakeFromNib() {
@@ -88,6 +89,7 @@ class CustomCell: UITableViewCell, AVAudioPlayerDelegate {
             playButton.setImage(UIImage(named: "playing"), for: .normal)
         } else {
             audioPlayer.play()
+            audioPlayer.enableRate = true
             playButton.setImage(UIImage(named: "stop"), for: .normal)
         }
     }
@@ -113,6 +115,19 @@ class CustomCell: UITableViewCell, AVAudioPlayerDelegate {
             audioDurationProgressLabel.text = "0\(Int(min)):\(Int(sec))"
         } else {
             audioDurationProgressLabel.text = "\(Int(min)):\(Int(sec))"
+        }
+    }
+    @IBAction func handleSpeedButton(_ sender: Any) {
+        switch audioPlayer.rate {
+        case 1.0:
+            self.audioPlayer.rate = 1.5
+            print("DEBUG: \(audioPlayer.rate)")
+        case 1.5:
+            self.audioPlayer.rate = 2.0
+            print("DEBUG: \(audioPlayer.rate)")
+        default:
+            self.audioPlayer.rate = 1.0
+            print("DEBUG: \(audioPlayer.rate)")
         }
     }
     
