@@ -170,6 +170,7 @@ class DetailViewController: UIViewController, AVAudioRecorderDelegate, AVAudioPl
                     } else {
                         audioData.titile = textField.text!
                     }
+                    audioData.isClosed = true
                 }
                 self.tableView.reloadData()
 
@@ -362,7 +363,6 @@ extension DetailViewController: CustomCellDelegate {
             }
         }
         inputAlert(audioData: audioData)
-        
     }
 }
 //END---CustomCellDelegate

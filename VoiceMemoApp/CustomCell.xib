@@ -164,6 +164,7 @@
                 <outlet property="audioDurationLabel" destination="KBt-kT-vo3" id="c4w-qn-5jM"/>
                 <outlet property="audioDurationProgressLabel" destination="Seg-9R-bEZ" id="hwh-RC-ghR"/>
                 <outlet property="dateLabel" destination="jGp-CS-DA1" id="YJN-BR-8wr"/>
+                <outlet property="editButton" destination="89B-kE-Vid" id="oe3-YE-yYF"/>
                 <outlet property="expandView" destination="A0H-iN-1Y8" id="m1m-zt-Yp3"/>
                 <outlet property="playButton" destination="511-ki-B5C" id="chs-8t-tdZ"/>
                 <outlet property="playSlider" destination="02w-g4-PaK" id="x6e-ED-aYW"/>

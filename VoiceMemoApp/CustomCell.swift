@@ -30,6 +30,7 @@ class CustomCell: UITableViewCell, AVAudioPlayerDelegate {
     @IBOutlet weak var audioDurationLabel: UILabel!
     @IBOutlet weak var audioDurationProgressLabel: UILabel!
     @IBOutlet weak var speedButton: UIButton!
+    @IBOutlet weak var editButton: UIButton!
     @IBOutlet weak var expandView: UIView!
     
     override func awakeFromNib() {
@@ -55,6 +56,11 @@ class CustomCell: UITableViewCell, AVAudioPlayerDelegate {
         
         let sliderTimer = Timer.scheduledTimer(timeInterval: 0.1, target: self, selector: #selector(slideCount(_:)), userInfo: nil, repeats: true)
         let durationTimer = Timer.scheduledTimer(timeInterval: 0.1, target: self, selector: #selector(timeCount(_:)), userInfo: nil, repeats: true)
+        
+        if dataSource.isClosed == true {
+            playButton.setImage(UIImage(named: "playing"), for: .normal)
+            editButton.isEnabled = true
+        }
     }
     
     func getURL() -> URL {
@@ -89,15 +95,20 @@ class CustomCell: UITableViewCell, AVAudioPlayerDelegate {
         if audioPlayer.isPlaying == true {
             audioPlayer.pause()
             playButton.setImage(UIImage(named: "playing"), for: .normal)
+            
+            editButton.isEnabled = true
         } else {
-            audioPlayer.play()
             audioPlayer.enableRate = true
+            audioPlayer.play()
             playButton.setImage(UIImage(named: "stop"), for: .normal)
+            
+            editButton.isEnabled = false
         }
     }
 
     func audioPlayerDidFinishPlaying(_ player: AVAudioPlayer, successfully flag: Bool) {
         playButton.setImage(UIImage(named: "playing"), for: .normal)
+        editButton.isEnabled = true
     }
     
     @IBAction func playSliderController(_ sender: Any) {
@@ -137,6 +148,7 @@ class CustomCell: UITableViewCell, AVAudioPlayerDelegate {
     }
     
     @IBAction func handleEditButton(_ sender: Any) {
+        delegate?.handleEditButton()
         
     }
 }
