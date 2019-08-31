@@ -80,7 +80,8 @@ class DetailViewController: UIViewController, AVAudioRecorderDelegate, AVAudioPl
                 audioRecorder = nil
                 
                 //inputAlertを表示してaudioDataのtitleを入力させる
-                inputAlert()
+                let audioData = maxIdAudioData()
+                inputAlert(audioData: audioData)
                 
                 //tableViewをリロード
                 tableView.reloadData()
@@ -150,14 +151,14 @@ class DetailViewController: UIViewController, AVAudioRecorderDelegate, AVAudioPl
     //END---getURL---
     
     //START---inputAlert---
-    func inputAlert() {
+    func inputAlert(audioData: AudioData) {
         if memoData.audioDatas.count != 0 {
             //idが最大のaudioData(最新のaudioData)を取得
-            let audioData = maxIdAudioData()
+            //let audioData = maxIdAudioData()
             //alert作成
             let alert = UIAlertController(title: "タイトルを入力", message: "", preferredStyle: .alert)
             alert.addTextField { (textField) in
-                textField.placeholder = "新規録音"
+                textField.placeholder = "taitoru"
             }
             alert.addAction(UIAlertAction(title: "OK", style: .default, handler: { (_) in
                 let textField = alert.textFields![0]
@@ -347,6 +348,21 @@ extension DetailViewController: CustomCellDelegate {
             }
         }
 */
+    }
+    func handleSpeedButton() {
+        
+    }
+    func handleEditButton() {
+        var audioData: AudioData!
+        print("handleEditButton")
+        //cellのexpandViewが開いているAudioDataを取得する(開いているのが出力するものだから)
+        for ad in memoData.audioDatas {
+            if ad.isClosed == false {
+                audioData = ad
+            }
+        }
+        inputAlert(audioData: audioData)
+        
     }
 }
 //END---CustomCellDelegate

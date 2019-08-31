@@ -12,6 +12,8 @@ import AVFoundation
 
 protocol CustomCellDelegate {
     func handlePlayButton(message: String)
+    func handleSpeedButton()
+    func handleEditButton()
 }
 
 
@@ -121,15 +123,21 @@ class CustomCell: UITableViewCell, AVAudioPlayerDelegate {
         switch audioPlayer.rate {
         case 1.0:
             self.audioPlayer.rate = 1.5
+            speedButton.setTitle("1.5倍速", for: .normal)
             print("DEBUG: \(audioPlayer.rate)")
         case 1.5:
             self.audioPlayer.rate = 2.0
+            speedButton.setTitle("2.0倍速", for: .normal)
             print("DEBUG: \(audioPlayer.rate)")
         default:
             self.audioPlayer.rate = 1.0
+            speedButton.setTitle("1.0倍速", for: .normal)
             print("DEBUG: \(audioPlayer.rate)")
         }
     }
     
+    @IBAction func handleEditButton(_ sender: Any) {
+        
+    }
 }
 
