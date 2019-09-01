@@ -53,6 +53,7 @@ class CustomCell: UITableViewCell, AVAudioPlayerDelegate {
         dateLabel.text = dateString
         expandView.isHidden = dataSource.isClosed
         audioDurationProgressLabel.text = "00:00"
+        playSlider.setThumbImage(UIImage(named: "Thumb"), for: .normal)
         
         let sliderTimer = Timer.scheduledTimer(timeInterval: 0.1, target: self, selector: #selector(slideCount(_:)), userInfo: nil, repeats: true)
         let durationTimer = Timer.scheduledTimer(timeInterval: 0.1, target: self, selector: #selector(timeCount(_:)), userInfo: nil, repeats: true)
