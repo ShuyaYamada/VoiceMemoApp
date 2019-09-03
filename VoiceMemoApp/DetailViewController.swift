@@ -99,7 +99,7 @@ class DetailViewController: UIViewController, AVAudioRecorderDelegate, AVAudioPl
         
         //navigationControllerの設定
         self.navigationController?.isToolbarHidden = false
-        navigationItem.title = "VoiceMemo"
+        navigationItem.title = "\(memoData.title)"
         navigationItem.rightBarButtonItem = editButtonItem
         
         setUpKeyboardButton()
