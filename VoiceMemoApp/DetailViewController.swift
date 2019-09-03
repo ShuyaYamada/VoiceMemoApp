@@ -158,7 +158,7 @@ class DetailViewController: UIViewController, AVAudioRecorderDelegate, AVAudioPl
             //alert作成
             let alert = UIAlertController(title: "タイトルを入力", message: "", preferredStyle: .alert)
             alert.addTextField { (textField) in
-                textField.placeholder = "taitoru"
+                textField.placeholder = "タイトル"
             }
             alert.addAction(UIAlertAction(title: "OK", style: .default, handler: { (_) in
                 let textField = alert.textFields![0]

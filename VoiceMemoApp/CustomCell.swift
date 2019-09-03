@@ -150,7 +150,6 @@ class CustomCell: UITableViewCell, AVAudioPlayerDelegate {
     
     @IBAction func handleEditButton(_ sender: Any) {
         delegate?.handleEditButton()
-        
     }
 }
 

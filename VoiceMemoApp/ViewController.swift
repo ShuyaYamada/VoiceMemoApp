@@ -21,9 +21,12 @@ class ViewController: UIViewController {
         super.viewDidLoad()
         
         //navigationControllerの設定
+        self.navigationController?.navigationBar.barStyle = .black
+        self.navigationController?.navigationBar.barTintColor = UIColor.black
         self.navigationController?.isToolbarHidden = false
-        navigationItem.title = "VoiceMemo"
+        navigationItem.title = "TEXT&VOICE"
         navigationItem.leftBarButtonItem = editButtonItem
+        self.navigationController?.navigationBar.tintColor = UIColor.white
 
         tableView.dataSource = self
         tableView.delegate = self
