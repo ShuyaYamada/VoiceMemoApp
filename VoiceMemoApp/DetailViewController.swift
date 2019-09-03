@@ -13,7 +13,7 @@ import RealmSwift
 class DetailViewController: UIViewController, AVAudioRecorderDelegate, AVAudioPlayerDelegate {
     
     //AVAudio系の変数
-    var recordingSession: AVAudioSession!
+    //var recordingSession: AVAudioSession!
     var audioRecorder: AVAudioRecorder!
     var audioPlayer: AVAudioPlayer!
     
@@ -52,6 +52,16 @@ class DetailViewController: UIViewController, AVAudioRecorderDelegate, AVAudioPl
                 
                 //保存先URLを取得
                 let failName = getURL().appendingPathComponent("\(audioData.id).m4a")
+                
+                let session = AVAudioSession.sharedInstance()
+                do {
+                    try session.setCategory(.playAndRecord, options: [.defaultToSpeaker])
+                    try session.setActive(true)
+                } catch {
+                    displayAlert(title: "録音できませんでした", message: "")
+                    print("DEBUG_PRINT: sessionでエラー")
+                }
+               
                 //recorderに必要なsettingsを取得
                 let settings = [
                     AVFormatIDKey: Int(kAudioFormatMPEG4AAC),
@@ -70,7 +80,7 @@ class DetailViewController: UIViewController, AVAudioRecorderDelegate, AVAudioPl
                     //ボタンのimageを変更
                     buttonImage.setImage(UIImage(named: "stopBTN"), for: .normal)
                 } catch {
-                    print("DEBUG_PRINT: 録音失敗")
+                    print("DEBUG_PRINT: 録音でエラー")
                     displayAlert(title: "Error", message: "Recording failed")
                 }
             } else {
