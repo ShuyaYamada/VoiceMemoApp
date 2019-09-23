@@ -142,6 +142,13 @@ class DetailViewController: UIViewController, AVAudioRecorderDelegate, AVAudioPl
             self.memoData.content = contentTextView.text
             self.realm.add(memoData)
         }
+        
+        //録音中に戻った場合のバグ対策
+        if audioRecorder != nil {
+            //Record Stop
+            audioRecorder.stop()
+            audioRecorder = nil
+        }
     }
     //END---viewWill Appear and Disappear
     
