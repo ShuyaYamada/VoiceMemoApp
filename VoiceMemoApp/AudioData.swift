@@ -16,7 +16,7 @@ class AudioData: Object {
     //セルの並べ替えのための値
     @objc dynamic var order = 0
     
-    @objc dynamic var titile = ""
+    @objc dynamic var titile = "新規録音"
     
     @objc dynamic var date = Date()
     
