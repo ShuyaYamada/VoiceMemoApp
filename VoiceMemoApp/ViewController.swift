@@ -24,7 +24,7 @@ class ViewController: UIViewController {
         self.navigationController?.navigationBar.barStyle = .black
         self.navigationController?.navigationBar.barTintColor = UIColor.black
         self.navigationController?.isToolbarHidden = false
-        navigationItem.title = "TEXT&VOICE"
+        navigationItem.title = "フォルダ一覧"
         navigationItem.leftBarButtonItem = editButtonItem
         self.navigationController?.navigationBar.tintColor = UIColor.white
 
