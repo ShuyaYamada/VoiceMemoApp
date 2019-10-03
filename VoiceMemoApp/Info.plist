@@ -23,7 +23,7 @@
 	<key>LSRequiresIPhoneOS</key>
 	<true/>
 	<key>NSMicrophoneUsageDescription</key>
-	<string>マイクの使用を許可しますか？</string>
+	<string>録音のためにマイクの使用を許可しますか？</string>
 	<key>UIBackgroundModes</key>
 	<array>
 		<string>audio</string>
