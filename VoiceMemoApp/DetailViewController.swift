@@ -29,78 +29,98 @@ class DetailViewController: UIViewController, AVAudioRecorderDelegate, AVAudioPl
     
     //START---Start Record and Stop Record---
     @IBAction func record(_ sender: Any) {
-        //編集モード時には実行しない
-        if tableView.isEditing == false {
-            if audioRecorder == nil {
-            //録音開始の処理
-                //audioDataを作成
-                let audioData = AudioData()
-                audioData.date = Date()
-                
-                //audioDataが1つ以上ならidとorderを+1する
-                if memoData.audioDatas.count != 0 {
-                    audioData.id = memoData.audioDatas.max(ofProperty: "id")! + 1
-                    audioData.order = memoData.audioDatas.max(ofProperty: "order")! + 1
-                } else {
-                    audioData.id = Int("\(memoData.id)\(memoData.id)\(audioData.id)")!
+        
+        let session = AVAudioSession.sharedInstance()
+        do {
+            try session.setCategory(.playAndRecord, options: [.defaultToSpeaker])
+            try session.setActive(true)
+            session.requestRecordPermission() { [unowned self] allowed in
+                DispatchQueue.main.async {
+                    if allowed {
+                        //許可されている時の処理
+                        recordingFunc()
+                    } else {
+                        //許可されていない時の処理
+                        self.settingAlert()
+                        print("DEBUG: 設定でマイクの使用許可を与えてください")
+                    }
                 }
-                
-                //memoDataのaudioDatasに作成したaudioDataを追加
-                try! realm.write {
-                    memoData.audioDatas.append(audioData)
-                }
-                
-                //保存先URLを取得
-                let failName = getURL().appendingPathComponent("\(audioData.id).m4a")
-                
-                let session = AVAudioSession.sharedInstance()
-                do {
-                    try session.setCategory(.playAndRecord, options: [.defaultToSpeaker])
-                    try session.setActive(true)
-                } catch {
-                    displayAlert(title: "録音できませんでした", message: "")
-                    print("DEBUG_PRINT: sessionでエラー")
-                }
-               
-                //recorderに必要なsettingsを取得
-                let settings = [
-                    AVFormatIDKey: Int(kAudioFormatMPEG4AAC),
-                    AVSampleRateKey: 44100,
-                    AVNumberOfChannelsKey: 2,
-                    AVEncoderAudioQualityKey: AVAudioQuality.high.rawValue
-                ]
-                
-                //Record Start
-                do {
-                    //recorderをインスタンス化
-                    audioRecorder = try AVAudioRecorder(url: failName, settings: settings)
-                    audioRecorder.delegate = self
-                    audioRecorder.record()
+            }
+            
+        } catch {
+            displayAlert(title: "録音できませんでした", message: "")
+            print("DEBUG_PRINT: sessionでエラー")
+        }
+
+        
+    //END---Start Record and Stop Record---
+    //START---Record and Stop---
+    func recordingFunc() {
+            //編集モード時には実行しない
+            if tableView.isEditing == false {
+                if audioRecorder == nil {
+                //録音開始の処理
+                    //audioDataを作成
+                    let audioData = AudioData()
+                    audioData.date = Date()
                     
-                    //ボタンのimageを変更
-                    buttonImage.setImage(UIImage(named: "stopBTN"), for: .normal)
-                } catch {
-                    print("DEBUG_PRINT: 録音でエラー")
-                    displayAlert(title: "Error", message: "Recording failed")
+                    //audioDataが1つ以上ならidとorderを+1する
+                    if memoData.audioDatas.count != 0 {
+                        audioData.id = memoData.audioDatas.max(ofProperty: "id")! + 1
+                        audioData.order = memoData.audioDatas.max(ofProperty: "order")! + 1
+                    } else {
+                        audioData.id = Int("\(memoData.id)\(memoData.id)\(audioData.id)")!
+                    }
+                    
+                    //memoDataのaudioDatasに作成したaudioDataを追加
+                    try! realm.write {
+                        memoData.audioDatas.append(audioData)
+                    }
+                    
+                    //保存先URLを取得
+                    let failName = getURL().appendingPathComponent("\(audioData.id).m4a")
+                    
+                    //recorderに必要なsettingsを取得
+                    let settings = [
+                        AVFormatIDKey: Int(kAudioFormatMPEG4AAC),
+                        AVSampleRateKey: 44100,
+                        AVNumberOfChannelsKey: 2,
+                        AVEncoderAudioQualityKey: AVAudioQuality.high.rawValue
+                    ]
+                    
+                    //Record Start
+                    do {
+                        //recorderをインスタンス化
+                        audioRecorder = try AVAudioRecorder(url: failName, settings: settings)
+                        audioRecorder.delegate = self
+                        audioRecorder.record()
+                        
+                        //ボタンのimageを変更
+                        buttonImage.setImage(UIImage(named: "stopBTN"), for: .normal)
+                    } catch {
+                        print("DEBUG_PRINT: 録音でエラー")
+                        displayAlert(title: "Error", message: "Recording failed")
+                    }
+                } else {
+                //録音完了の処理
+                    //Record Stop
+                    audioRecorder.stop()
+                    audioRecorder = nil
+                    
+                    //inputAlertを表示してaudioDataのtitleを入力させる
+                    let audioData = maxIdAudioData()
+                    inputAlert(audioData: audioData)
+                    
+                    //tableViewをリロード
+                    tableView.reloadData()
+                    //ボタンのimageを変更する
+                    buttonImage.setImage(UIImage(named: "startBTN"), for: .normal)
                 }
-            } else {
-            //録音完了の処理
-                //Record Stop
-                audioRecorder.stop()
-                audioRecorder = nil
-                
-                //inputAlertを表示してaudioDataのtitleを入力させる
-                let audioData = maxIdAudioData()
-                inputAlert(audioData: audioData)
-                
-                //tableViewをリロード
-                tableView.reloadData()
-                //ボタンのimageを変更する
-                buttonImage.setImage(UIImage(named: "startBTN"), for: .normal)
             }
         }
+
     }
-    //END---Start Record and Stop Record---
+    //END---Record and Stop---
     
     
     //START---viewDidLoad---
@@ -221,6 +241,21 @@ class DetailViewController: UIViewController, AVAudioRecorderDelegate, AVAudioPl
         present(alert, animated: true, completion: nil)
     }
     //END---displaaAlert---
+    
+    //START---
+    func settingAlert() {
+        let alert = UIAlertController(title: "マイクを許可してください", message: "[設置]→[プライバシー]→[マイク]→[テキボイメモ]のマイクをONにしてください", preferredStyle: .alert)
+        let settingAction: UIAlertAction = UIAlertAction(title: "設定へ", style: .default) { (a) in
+            if let url = URL(string: "App-Prefs:root=Privacy") {
+                UIApplication.shared.open(url, options: [:], completionHandler: nil)
+            }
+        }
+        let cancelAction: UIAlertAction = UIAlertAction(title: "キャンセル", style: .cancel, handler: nil)
+        alert.addAction(cancelAction)
+        alert.addAction(settingAction)
+        present(alert, animated: true, completion: nil)
+    }
+    
     
     //START---setEditing---
     override func setEditing(_ editing: Bool, animated: Bool) {
