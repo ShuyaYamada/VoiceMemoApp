@@ -27,6 +27,8 @@ class DetailViewController: UIViewController, AVAudioRecorderDelegate, AVAudioPl
     @IBOutlet weak var buttonImage: UIButton!
     @IBOutlet weak var tableView: UITableView!
     
+    
+    
     //START---Start Record and Stop Record---
     @IBAction func record(_ sender: Any) {
         
@@ -51,9 +53,9 @@ class DetailViewController: UIViewController, AVAudioRecorderDelegate, AVAudioPl
             displayAlert(title: "録音できませんでした", message: "")
             print("DEBUG_PRINT: sessionでエラー")
         }
-
-        
     //END---Start Record and Stop Record---
+        
+        
     //START---Record and Stop---
     func recordingFunc() {
             //編集モード時には実行しない
@@ -245,14 +247,7 @@ class DetailViewController: UIViewController, AVAudioRecorderDelegate, AVAudioPl
     //START---
     func settingAlert() {
         let alert = UIAlertController(title: "マイクを許可してください", message: "[設置]→[プライバシー]→[マイク]→[テキボイメモ]のマイクをONにしてください", preferredStyle: .alert)
-        let settingAction: UIAlertAction = UIAlertAction(title: "設定へ", style: .default) { (a) in
-            if let url = URL(string: "App-Prefs:root=Privacy") {
-                UIApplication.shared.open(url, options: [:], completionHandler: nil)
-            }
-        }
-        let cancelAction: UIAlertAction = UIAlertAction(title: "キャンセル", style: .cancel, handler: nil)
-        alert.addAction(cancelAction)
-        alert.addAction(settingAction)
+        alert.addAction(UIAlertAction(title: "OK", style: .default, handler: nil))
         present(alert, animated: true, completion: nil)
     }
     
