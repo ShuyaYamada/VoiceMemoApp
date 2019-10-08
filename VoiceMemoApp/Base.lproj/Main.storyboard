@@ -41,6 +41,17 @@
                                 <fontDescription key="fontDescription" name=".AppleSystemUIFont" family=".AppleSystemUIFont" pointSize="14"/>
                                 <textInputTraits key="textInputTraits" autocapitalizationType="sentences"/>
                             </textView>
+                            <label hidden="YES" opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="録音中" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="UeB-Bn-583">
+                                <rect key="frame" x="195" y="231" width="100" height="50"/>
+                                <color key="backgroundColor" systemColor="systemRedColor" red="1" green="0.23137254901960785" blue="0.18823529411764706" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+                                <constraints>
+                                    <constraint firstAttribute="height" constant="50" id="JTg-Yt-hyf"/>
+                                    <constraint firstAttribute="width" constant="100" id="a0u-qN-dCl"/>
+                                </constraints>
+                                <fontDescription key="fontDescription" type="system" pointSize="17"/>
+                                <color key="textColor" cocoaTouchSystemColor="groupTableViewBackgroundColor"/>
+                                <nil key="highlightedColor"/>
+                            </label>
                         </subviews>
                         <color key="backgroundColor" red="1" green="1" blue="1" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                         <constraints>
@@ -53,9 +64,11 @@
                             <constraint firstItem="6Tk-OE-BBY" firstAttribute="trailing" secondItem="xVv-II-dIu" secondAttribute="trailing" constant="5" id="V3Z-v9-NS8"/>
                             <constraint firstItem="4Qw-eO-obm" firstAttribute="bottom" secondItem="6Tk-OE-BBY" secondAttribute="bottom" id="ZyT-Si-VHC"/>
                             <constraint firstItem="4Qw-eO-obm" firstAttribute="leading" secondItem="6Tk-OE-BBY" secondAttribute="leading" id="bm9-bO-rcQ"/>
+                            <constraint firstItem="UeB-Bn-583" firstAttribute="centerY" secondItem="bRX-qN-UfJ" secondAttribute="centerY" id="btW-1v-3eM"/>
                             <constraint firstItem="4Qw-eO-obm" firstAttribute="top" secondItem="bRX-qN-UfJ" secondAttribute="bottom" constant="5" id="cFx-az-p5y"/>
                             <constraint firstItem="bRX-qN-UfJ" firstAttribute="top" secondItem="5On-Cf-z3G" secondAttribute="bottom" constant="20" id="eax-7b-jTP"/>
                             <constraint firstItem="5On-Cf-z3G" firstAttribute="leading" secondItem="6Tk-OE-BBY" secondAttribute="leading" id="hCR-x1-0S7"/>
+                            <constraint firstItem="UeB-Bn-583" firstAttribute="leading" secondItem="bRX-qN-UfJ" secondAttribute="trailing" constant="10" id="mDo-iG-fLH"/>
                             <constraint firstItem="xVv-II-dIu" firstAttribute="leading" secondItem="6Tk-OE-BBY" secondAttribute="leading" constant="5" id="srP-Jz-TrR"/>
                         </constraints>
                         <viewLayoutGuide key="safeArea" id="6Tk-OE-BBY"/>
@@ -64,13 +77,14 @@
                     <connections>
                         <outlet property="buttonImage" destination="bRX-qN-UfJ" id="QHY-Jv-2S2"/>
                         <outlet property="contentTextView" destination="5On-Cf-z3G" id="ouc-4v-3cY"/>
+                        <outlet property="recordLabel" destination="UeB-Bn-583" id="Qqs-Jp-8R1"/>
                         <outlet property="tableView" destination="4Qw-eO-obm" id="zQm-md-5IY"/>
                         <outlet property="titleTextField" destination="xVv-II-dIu" id="iF3-mm-kl6"/>
                     </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="dkx-z0-nzr" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="2239" y="803"/>
+            <point key="canvasLocation" x="2238.75" y="802.81690140845069"/>
         </scene>
         <!--View Controller-->
         <scene sceneID="lBo-ns-IZu">

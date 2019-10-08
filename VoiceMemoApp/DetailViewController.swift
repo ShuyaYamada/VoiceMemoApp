@@ -27,6 +27,7 @@ class DetailViewController: UIViewController, AVAudioRecorderDelegate, AVAudioPl
     @IBOutlet weak var buttonImage: UIButton!
     @IBOutlet weak var tableView: UITableView!
     
+    @IBOutlet weak var recordLabel: UILabel!
     
     
     //START---Start Record and Stop Record---
@@ -99,6 +100,7 @@ class DetailViewController: UIViewController, AVAudioRecorderDelegate, AVAudioPl
                         
                         //ボタンのimageを変更
                         buttonImage.setImage(UIImage(named: "stopBTN"), for: .normal)
+                        recordLabel.isHidden = false
                     } catch {
                         print("DEBUG_PRINT: 録音でエラー")
                         displayAlert(title: "Error", message: "Recording failed")
@@ -117,6 +119,7 @@ class DetailViewController: UIViewController, AVAudioRecorderDelegate, AVAudioPl
                     tableView.reloadData()
                     //ボタンのimageを変更する
                     buttonImage.setImage(UIImage(named: "startBTN"), for: .normal)
+                    recordLabel.isHidden = true
                 }
             }
         }
@@ -170,6 +173,7 @@ class DetailViewController: UIViewController, AVAudioRecorderDelegate, AVAudioPl
             //Record Stop
             audioRecorder.stop()
             audioRecorder = nil
+            recordLabel.isHidden = true
         }
     }
     //END---viewWill Appear and Disappear
@@ -327,7 +331,6 @@ class DetailViewController: UIViewController, AVAudioRecorderDelegate, AVAudioPl
         self.view.endEditing(true)
     }
     //END---textView編集時にKeyboardにdoneボタンを表示する
-
 }
 
 //START---TableViewDataSource---
