@@ -13,6 +13,7 @@ class HomeViewController: UIViewController {
     
     let realm = try! Realm()
     var memoDataArray = try! Realm().objects(MemoData.self).sorted(byKeyPath: "order", ascending: false)
+    var documentPath = FileManager.default.urls(for: .documentDirectory, in: .userDomainMask)[0]
 
     @IBOutlet weak var tableView: UITableView!
     
@@ -80,5 +81,32 @@ extension HomeViewController: UITableViewDelegate {
     //MARK: - TableViewCell Delete
     func tableView(_ tableView: UITableView, commit editingStyle: UITableViewCell.EditingStyle, forRowAt indexPath: IndexPath) {
         print("Cell Delete")
+        if editingStyle == .delete {
+            
+            let memoData = memoDataArray[indexPath.row]
+            
+            for audioData in memoData.audioDatas {
+                do {
+                    let url = documentPath.appendingPathComponent("\(audioData.id).m4a")
+                    try FileManager.default.removeItem(at: url)
+                    try self.realm.write {
+                        realm.delete(audioData)
+                    }
+                } catch {
+                    print("DEBUG_ERROR: セル消去時")
+                }
+            }
+            
+            do {
+                try realm.write {
+                    realm.delete(memoData)
+                }
+            } catch {
+                print("DEBUG_ERROR: セル消去時")
+            }
+            
+            tableView.deleteRows(at: [indexPath], with: .fade)
+            tableView.reloadData()
+        }
     }
 }
