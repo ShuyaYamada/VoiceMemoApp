@@ -73,12 +73,8 @@ extension HomeViewController: UITableViewDelegate {
     func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
         performSegue(withIdentifier: "tappedCellSegue", sender: nil)
     }
-    override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
-        let destinationVC = segue.destination as! FolderViewController
-        
-    }
     
-    //MARK: - TableViewCell Delete
+    //MARK: - TableViewCell Delete Method
     func tableView(_ tableView: UITableView, commit editingStyle: UITableViewCell.EditingStyle, forRowAt indexPath: IndexPath) {
         print("Cell Delete")
         if editingStyle == .delete {
@@ -108,5 +104,32 @@ extension HomeViewController: UITableViewDelegate {
             tableView.deleteRows(at: [indexPath], with: .fade)
             tableView.reloadData()
         }
+    }
+    
+    //MARK: - TableViewCell Move Method
+    func tableView(_ tableView: UITableView, canMoveRowAt indexPath: IndexPath) -> Bool {
+        return true
+    }
+    
+    func tableView(_ tableView: UITableView, moveRowAt sourceIndexPath: IndexPath, to destinationIndexPath: IndexPath) {
+        let sourceMD = memoDataArray[sourceIndexPath.row]
+        let destinationMD = memoDataArray[destinationIndexPath.row]
+        let destinationMDOrder = destinationMD.order
+        
+        try! realm.write {
+            if sourceIndexPath.row < destinationIndexPath.row {
+                for index in sourceIndexPath.row...destinationIndexPath.row {
+                    let md = memoDataArray[index]
+                    md.order += 1
+                }
+            } else {
+                for index in (destinationIndexPath.row..<sourceIndexPath.row).reversed() {
+                    let md = memoDataArray[index]
+                    md.order -= 1
+                }
+            }
+            sourceMD.order = destinationMDOrder
+        }
+        tableView.reloadData()
     }
 }
