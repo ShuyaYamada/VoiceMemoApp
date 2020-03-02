@@ -106,7 +106,7 @@ extension ViewController: UITableViewDelegate {
         //既存データを渡す
             let indexPath = self.tableView.indexPathForSelectedRow
             try! realm.write {
-                detailViewController.memoData = memoDataArray[indexPath!.row]
+               // detailViewController.memoData = memoDataArray[indexPath!.row]
             }
         } else {
             
@@ -117,7 +117,7 @@ extension ViewController: UITableViewDelegate {
                     memoData.id = allMemoData.max(ofProperty: "id")! + 1
                     memoData.order = allMemoData.max(ofProperty: "order")! + 1
                 }
-                detailViewController.memoData = memoData
+                //detailViewController.memoData = memoData
                 realm.add(memoData)
             }
         }
