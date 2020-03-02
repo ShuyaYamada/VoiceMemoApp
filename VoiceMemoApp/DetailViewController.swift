@@ -30,7 +30,7 @@ class DetailViewController: UIViewController, AVAudioRecorderDelegate, AVAudioPl
     @IBOutlet weak var recordLabel: UILabel!
     
     
-    //START---Start Record and Stop Record---
+//MARK: - Record Methods
     @IBAction func record(_ sender: Any) {
         
         let session = AVAudioSession.sharedInstance()
@@ -54,10 +54,7 @@ class DetailViewController: UIViewController, AVAudioRecorderDelegate, AVAudioPl
             displayAlert(title: "録音できませんでした", message: "")
             print("DEBUG_PRINT: sessionでエラー")
         }
-    //END---Start Record and Stop Record---
         
-        
-    //START---Record and Stop---
     func recordingFunc() {
             //編集モード時には実行しない
             if tableView.isEditing == false {
@@ -113,7 +110,8 @@ class DetailViewController: UIViewController, AVAudioRecorderDelegate, AVAudioPl
                     
                     //inputAlertを表示してaudioDataのtitleを入力させる
                     let audioData = maxIdAudioData()
-                    inputAlert(audioData: audioData)
+                    
+                    EditAudioDataTitle(audioData: audioData)
                     
                     //tableViewをリロード
                     tableView.reloadData()
@@ -125,10 +123,8 @@ class DetailViewController: UIViewController, AVAudioRecorderDelegate, AVAudioPl
         }
 
     }
-    //END---Record and Stop---
+
     
-    
-    //START---viewDidLoad---
     override func viewDidLoad() {
         super.viewDidLoad()
         
@@ -149,8 +145,6 @@ class DetailViewController: UIViewController, AVAudioRecorderDelegate, AVAudioPl
         titleTextField.text = memoData.title
         contentTextView.text = memoData.content
     }
-    //END---viewDidLoad---
-    //START---viewWill Appear and Disappear
     override func viewWillAppear(_ animated: Bool) {
         super.viewWillAppear(animated)
         tableView.reloadData()
@@ -176,55 +170,42 @@ class DetailViewController: UIViewController, AVAudioRecorderDelegate, AVAudioPl
             recordLabel.isHidden = true
         }
     }
-    //END---viewWill Appear and Disappear
     
-    //START---registerCell---
+
     private func registerCells() {
         tableView.register(UINib(nibName: "CustomCell", bundle: nil), forCellReuseIdentifier: "CustomCell")
     }
-    //END---registerCell
-
-    //START---getURL---
+    
     func getURL() -> URL {
         //録音データの保存先URLの先頭部分。 このURL+AudioDataのidで識別する。
         let path = FileManager.default.urls(for: .documentDirectory, in: .userDomainMask)
         let url = path[0]
         return url
     }
-    //END---getURL---
     
-    //START---inputAlert---
-    func inputAlert(audioData: AudioData) {
-        if memoData.audioDatas.count != 0 {
-            //idが最大のaudioData(最新のaudioData)を取得
-            //let audioData = maxIdAudioData()
-            //alert作成
-            let alert = UIAlertController(title: "タイトルを入力", message: "", preferredStyle: .alert)
-            alert.addTextField { (textField) in
-                textField.placeholder = "タイトル"
-            }
-            alert.addAction(UIAlertAction(title: "OK", style: .default, handler: { (_) in
-                let textField = alert.textFields![0]
-                //audioDataを保存
-                try! self.realm.write {
-                    if textField.text == "" {
-                        //textFieldが空ならば「新規録音#」をtitleに与える
-                        audioData.titile = "新規録音#\(self.memoData.audioDatas.count)"
-                    } else {
-                        audioData.titile = textField.text!
-                    }
-                    audioData.isClosed = true
-                }
-                self.tableView.reloadData()
-
-            }))
-            present(alert, animated: true, completion: nil)
-        } else {
-            displayAlert(title: "録音なし", message: "")
+    //MARK: - Update Data
+    func EditAudioDataTitle(audioData: AudioData) {
+        
+        let alert = UIAlertController(title: "タイトルを入力", message: "", preferredStyle: .alert)
+        alert.addTextField { (textField) in
+            textField.placeholder = "タイトルを入力"
+        }
+        
+        alert.addAction(UIAlertAction(title: "OK", style: .default, handler: { (_) in
+            let textField = alert.textFields![0]
+            self.saveAudioDataTitle(audioData: audioData, title: textField.text!)
+        }))
+        present(alert, animated: true, completion: nil)
+    }
+    
+    func saveAudioDataTitle(audioData: AudioData, title: String) {
+        try! self.realm.write {
+            audioData.titile = title
+            audioData.isClosed = true
+            self.tableView.reloadData()
         }
     }
-    //END---inputAlert---
-    
+
     //START---maxIdAudioData---
     func maxIdAudioData() -> AudioData {
         var audioData: AudioData!
@@ -390,34 +371,24 @@ extension DetailViewController: UITableViewDelegate {
 
 extension DetailViewController: CustomCellDelegate {
     func handlePlayButton(message: String) {
-        /*
-        var audioData: AudioData?
-        //cellのexpandViewが開いているAudioDataを取得する(開いているのが出力するものだから)
-        for ad in memoData.audioDatas {
-            if ad.isClosed == false {
-                audioData = ad
-            }
-        }
-*/
+
     }
     func handleSpeedButton() {
         
     }
     func handleEditButton() {
         var audioData: AudioData!
-        print("handleEditButton")
         //cellのexpandViewが開いているAudioDataを取得する(開いているのが出力するものだから)
         for ad in memoData.audioDatas {
             if ad.isClosed == false {
                 audioData = ad
             }
         }
-        inputAlert(audioData: audioData)
+        EditAudioDataTitle(audioData: audioData)
     }
 }
 //END---CustomCellDelegate
 
-//
 extension DetailViewController: UITextFieldDelegate {
     func textFieldShouldReturn(_ textField: UITextField) -> Bool {
         textField.resignFirstResponder()
