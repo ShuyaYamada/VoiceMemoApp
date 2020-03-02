@@ -12,21 +12,16 @@ import RealmSwift
 
 class DetailViewController: UIViewController, AVAudioRecorderDelegate, AVAudioPlayerDelegate {
     
-    //AVAudio系の変数
-    //var recordingSession: AVAudioSession!
     var audioRecorder: AVAudioRecorder!
     var audioPlayer: AVAudioPlayer!
     
-    //Data関係
     let realm = try! Realm()
     var memoData: MemoData!
     
-    //IBOutlet
     @IBOutlet weak var titleTextField: UITextField!
     @IBOutlet weak var contentTextView: UITextView!
     @IBOutlet weak var buttonImage: UIButton!
     @IBOutlet weak var tableView: UITableView!
-    
     @IBOutlet weak var recordLabel: UILabel!
     
     
@@ -124,11 +119,10 @@ class DetailViewController: UIViewController, AVAudioRecorderDelegate, AVAudioPl
 
     }
 
-    
+    //MARK: - UI初期化
     override func viewDidLoad() {
         super.viewDidLoad()
         
-        //navigationControllerの設定
         self.navigationController?.isToolbarHidden = false
         navigationItem.title = "\(memoData.title)"
         navigationItem.rightBarButtonItem = editButtonItem
@@ -141,7 +135,6 @@ class DetailViewController: UIViewController, AVAudioRecorderDelegate, AVAudioPl
         registerCells()
         titleTextField.delegate = self
         
-        //ViewControllerから受け取ったmemoDataをUIに反映
         titleTextField.text = memoData.title
         contentTextView.text = memoData.content
     }
@@ -149,6 +142,37 @@ class DetailViewController: UIViewController, AVAudioRecorderDelegate, AVAudioPl
         super.viewWillAppear(animated)
         tableView.reloadData()
     }
+    
+    override func setEditing(_ editing: Bool, animated: Bool) {
+        super.setEditing(editing, animated: true)
+        tableView.isEditing = editing
+    }
+    
+    func setUpKeyboardButton() {
+        // ツールバー生成
+        let toolBar = UIToolbar(frame: CGRect(x: 0, y: 0, width: 320, height: 40))
+        // スタイルを設定
+        toolBar.barStyle = UIBarStyle.default
+        // 画面幅に合わせてサイズを変更
+        toolBar.sizeToFit()
+        // 閉じるボタンを右に配置するためのスペース?
+        let spacer = UIBarButtonItem(barButtonSystemItem: UIBarButtonItem.SystemItem.flexibleSpace, target: self, action: nil)
+        // 閉じるボタン
+        let commitButton = UIBarButtonItem(barButtonSystemItem: UIBarButtonItem.SystemItem.done, target: self, action: #selector(commitButtonTapped))
+        // スペース、閉じるボタンを右側に配置
+        toolBar.items = [spacer, commitButton]
+        // textViewのキーボードにツールバーを設定
+        contentTextView.inputAccessoryView = toolBar
+    }
+    @objc func commitButtonTapped() {
+        self.view.endEditing(true)
+    }
+    private func registerCells() {
+        tableView.register(UINib(nibName: "CustomCell", bundle: nil), forCellReuseIdentifier: "CustomCell")
+    }
+    
+    
+    //MARK: - View Will Disappear
     override func viewWillDisappear(_ animated: Bool) {
         try! realm.write {
         //画面を離れるときにmemoDataを保存する
@@ -172,16 +196,7 @@ class DetailViewController: UIViewController, AVAudioRecorderDelegate, AVAudioPl
     }
     
 
-    private func registerCells() {
-        tableView.register(UINib(nibName: "CustomCell", bundle: nil), forCellReuseIdentifier: "CustomCell")
-    }
     
-    func getURL() -> URL {
-        //録音データの保存先URLの先頭部分。 このURL+AudioDataのidで識別する。
-        let path = FileManager.default.urls(for: .documentDirectory, in: .userDomainMask)
-        let url = path[0]
-        return url
-    }
     
     //MARK: - Update Data
     func EditAudioDataTitle(audioData: AudioData) {
@@ -206,7 +221,7 @@ class DetailViewController: UIViewController, AVAudioRecorderDelegate, AVAudioPl
         }
     }
 
-    //START---maxIdAudioData---
+    //MARK: - Suport Methods
     func maxIdAudioData() -> AudioData {
         var audioData: AudioData!
         var maxId = 0
@@ -219,17 +234,20 @@ class DetailViewController: UIViewController, AVAudioRecorderDelegate, AVAudioPl
         }
         return audioData
     }
-    //END---maxIdAudioData---
     
-    //START---displayAlert---
+    func getURL() -> URL {
+        //録音データの保存先URLの先頭部分。 このURL+AudioDataのidで識別する。
+        let path = FileManager.default.urls(for: .documentDirectory, in: .userDomainMask)
+        let url = path[0]
+        return url
+    }
+    
     func displayAlert(title: String, message: String) {
         let alert = UIAlertController(title: title, message: message, preferredStyle: .alert)
         alert.addAction(UIAlertAction(title: "dismiss", style: .default, handler: nil))
         present(alert, animated: true, completion: nil)
     }
-    //END---displaaAlert---
     
-    //START---
     func settingAlert() {
         let alert = UIAlertController(title: "マイクを許可してください", message: "[設置]→[プライバシー]→[マイク]→[テキボイメモ]のマイクをONにしてください", preferredStyle: .alert)
         alert.addAction(UIAlertAction(title: "OK", style: .default, handler: nil))
@@ -237,34 +255,62 @@ class DetailViewController: UIViewController, AVAudioRecorderDelegate, AVAudioPl
     }
     
     
-    //START---setEditing---
-    override func setEditing(_ editing: Bool, animated: Bool) {
-        super.setEditing(editing, animated: true)
-        tableView.isEditing = editing
-    }
-    //END---setEditing---
     
-    //START---TableViewCell削除---
-    func tableView(_ tableView: UITableView, commit editingStyle: UITableViewCell.EditingStyle, forRowAt indexPath: IndexPath) {
-        if editingStyle == .delete {
-            //audioDataを取得
+    
+    
+}
+
+//MARK: - TableView DataSouce Methods
+extension DetailViewController: UITableViewDataSource {
+    func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
+        if memoData.audioDatas.count != 0 {
             let sortedDatas = memoData.audioDatas.sorted(byKeyPath: "order", ascending: false)
-            let audioData = sortedDatas[indexPath.row]
-            
-            //録音データの保存されてるURLを取得
-            let url = getURL().appendingPathComponent("\(audioData.id).m4a")
-            //録音データを削除
-            try! FileManager.default.removeItem(at: url)
-            //realmのaudioDataを削除
-            try! realm.write {
-                realm.delete(audioData)
-            }
-            tableView.deleteRows(at: [indexPath], with: .fade)
-            tableView.reloadData()
+            return sortedDatas.count
+        } else {
+            return memoData.audioDatas.count
         }
     }
-    //END---TableViewCell削除---
-    //START---TableViewCell並べ替え---
+    func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
+        guard let cell = tableView.dequeueReusableCell(withIdentifier: "CustomCell", for: indexPath) as? CustomCell else {
+            return UITableViewCell(frame: .zero)
+        }
+        if memoData.audioDatas.count != 0 {
+            let sortedDatas = memoData.audioDatas.sorted(byKeyPath: "order", ascending: false)
+            cell.setUp(delegate: self as CustomCellDelegate, dataSource: sortedDatas[indexPath.row])
+        } else {
+            cell.setUp(delegate: self as CustomCellDelegate, dataSource: memoData.audioDatas[indexPath.row])
+        }
+        return cell
+    }
+}
+
+
+extension DetailViewController: UITableViewDelegate {
+    
+    //MARK: - TableViewCell Tapped method
+    func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
+        //選択中を解除するための処理
+        tableView.deselectRow(at: indexPath, animated: true)
+        
+        try! realm.write {
+            //セルのexpandViewの開いているのは1つにする
+            let sortedDatas = memoData.audioDatas.sorted(byKeyPath: "order", ascending: false)
+            for (index, ad) in sortedDatas.enumerated() {
+                //expandViewが開いていれば閉じる
+                if ad.isClosed == false {
+                    ad.isClosed = true
+                } else {
+                    //didSelectしてcellの場合のみ、expandViewが閉じていたら開く
+                    if index == indexPath.row {
+                        ad.isClosed = false
+                    }
+                }
+            }
+        }
+        tableView.reloadData()
+    }
+    
+    //MARK: - TableViewCell 並び替え
     func tableView(_ tableView: UITableView, canMoveRowAt indexPath: IndexPath) -> Bool {
         return true
     }
@@ -290,84 +336,27 @@ class DetailViewController: UIViewController, AVAudioRecorderDelegate, AVAudioPl
         }
         tableView.reloadData()
     }
-    //END---TableViewCell並べ替え---
-    //START---textView編集時にKeyboardにdoneボタンを表示する
-    func setUpKeyboardButton() {
-        // ツールバー生成
-        let toolBar = UIToolbar(frame: CGRect(x: 0, y: 0, width: 320, height: 40))
-        // スタイルを設定
-        toolBar.barStyle = UIBarStyle.default
-        // 画面幅に合わせてサイズを変更
-        toolBar.sizeToFit()
-        // 閉じるボタンを右に配置するためのスペース?
-        let spacer = UIBarButtonItem(barButtonSystemItem: UIBarButtonItem.SystemItem.flexibleSpace, target: self, action: nil)
-        // 閉じるボタン
-        let commitButton = UIBarButtonItem(barButtonSystemItem: UIBarButtonItem.SystemItem.done, target: self, action: #selector(commitButtonTapped))
-        // スペース、閉じるボタンを右側に配置
-        toolBar.items = [spacer, commitButton]
-        // textViewのキーボードにツールバーを設定
-        contentTextView.inputAccessoryView = toolBar
-    }
-    @objc func commitButtonTapped() {
-        self.view.endEditing(true)
-    }
-    //END---textView編集時にKeyboardにdoneボタンを表示する
-}
-
-//START---TableViewDataSource---
-extension DetailViewController: UITableViewDataSource {
-    func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
-        if memoData.audioDatas.count != 0 {
-            let sortedDatas = memoData.audioDatas.sorted(byKeyPath: "order", ascending: false)
-            return sortedDatas.count
-        } else {
-            return memoData.audioDatas.count
-        }
-    }
     
-    func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
-        guard let cell = tableView.dequeueReusableCell(withIdentifier: "CustomCell", for: indexPath) as? CustomCell else {
-            return UITableViewCell(frame: .zero)
-        }
-        if memoData.audioDatas.count != 0 {
+    //MARK: - TableViewCell 削除
+    func tableView(_ tableView: UITableView, commit editingStyle: UITableViewCell.EditingStyle, forRowAt indexPath: IndexPath) {
+        if editingStyle == .delete {
+            //audioDataを取得
             let sortedDatas = memoData.audioDatas.sorted(byKeyPath: "order", ascending: false)
-            cell.setUp(delegate: self as CustomCellDelegate, dataSource: sortedDatas[indexPath.row])
-        } else {
-            cell.setUp(delegate: self as CustomCellDelegate, dataSource: memoData.audioDatas[indexPath.row])
-        }
-        return cell
-    }
-}
-//END---TableViewDataSource---
-
-//START---TableViewDelegate---
-extension DetailViewController: UITableViewDelegate {
-    func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
-        //選択中を解除するための処理
-        tableView.deselectRow(at: indexPath, animated: true)
-        
-        try! realm.write {
-            //セルのexpandViewの開いているのは1つにする
-            let sortedDatas = memoData.audioDatas.sorted(byKeyPath: "order", ascending: false)
-            for (index, ad) in sortedDatas.enumerated() {
-                //expandViewが開いていれば閉じる
-                if ad.isClosed == false {
-                    ad.isClosed = true
-                } else {
-                    //didSelectしてcellの場合のみ、expandViewが閉じていたら開く
-                    if index == indexPath.row {
-                        ad.isClosed = false
-                    }
-                }
+            let audioData = sortedDatas[indexPath.row]
+            
+            //録音データの保存されてるURLを取得
+            let url = getURL().appendingPathComponent("\(audioData.id).m4a")
+            //録音データを削除
+            try! FileManager.default.removeItem(at: url)
+            //realmのaudioDataを削除
+            try! realm.write {
+                realm.delete(audioData)
             }
+            tableView.deleteRows(at: [indexPath], with: .fade)
+            tableView.reloadData()
         }
-        tableView.reloadData()
     }
 }
-//END---TableViewDelegate---
-
-//START---CustomCellDelegate
-
 
 extension DetailViewController: CustomCellDelegate {
     func handlePlayButton(message: String) {
@@ -387,7 +376,6 @@ extension DetailViewController: CustomCellDelegate {
         EditAudioDataTitle(audioData: audioData)
     }
 }
-//END---CustomCellDelegate
 
 extension DetailViewController: UITextFieldDelegate {
     func textFieldShouldReturn(_ textField: UITextField) -> Bool {
