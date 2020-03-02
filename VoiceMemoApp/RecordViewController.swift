@@ -1,5 +1,5 @@
 //
-//  DetailViewController.swift
+//  RecordViewController.swift
 //  RefactoringVoiceMemoApp
 //
 //  Created by ShuyaYamada on 2020/03/01.
@@ -8,7 +8,7 @@
 
 import UIKit
 
-class DetailViewController: UIViewController {
+class RecordViewController: UIViewController {
 
     override func viewDidLoad() {
         super.viewDidLoad()
