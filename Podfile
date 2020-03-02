@@ -6,6 +6,6 @@ target 'VoiceMemoApp' do
   use_frameworks!
 
   # Pods for VoiceMemoApp
-  pod 'RealmSwift'
+  pod 'RealmSwift' , '~> 4.3.2'
 
 end
