@@ -68,6 +68,36 @@
 			name = Frameworks;
 			sourceTree = "<group>";
 		};
+		9E226C10240CEA2F00C35D92 /* Resouse */ = {
+			isa = PBXGroup;
+			children = (
+				9E97633C230F8D5700EBAED0 /* Assets.xcassets */,
+				9E97633E230F8D5700EBAED0 /* LaunchScreen.storyboard */,
+				9E976341230F8D5700EBAED0 /* Info.plist */,
+			);
+			path = Resouse;
+			sourceTree = "<group>";
+		};
+		9E8372EB240CE8F300E8A398 /* View */ = {
+			isa = PBXGroup;
+			children = (
+				9E976339230F8D5600EBAED0 /* Main.storyboard */,
+				9E8372E2240CE66E00E8A398 /* FolderCell.swift */,
+				9E8372E4240CE66E00E8A398 /* RecordingTableViewCell.swift */,
+			);
+			path = View;
+			sourceTree = "<group>";
+		};
+		9E8372EC240CE92900E8A398 /* Contoroller */ = {
+			isa = PBXGroup;
+			children = (
+				9E8372E3240CE66E00E8A398 /* HomeViewController.swift */,
+				9E8372E1240CE66E00E8A398 /* FolderViewController.swift */,
+				9E8372E5240CE66E00E8A398 /* RecordViewController.swift */,
+			);
+			path = Contoroller;
+			sourceTree = "<group>";
+		};
 		9E976329230F8D5600EBAED0 = {
 			isa = PBXGroup;
 			children = (
@@ -89,22 +119,16 @@
 		9E976334230F8D5600EBAED0 /* VoiceMemoApp */ = {
 			isa = PBXGroup;
 			children = (
-				9E8372E2240CE66E00E8A398 /* FolderCell.swift */,
-				9E8372E1240CE66E00E8A398 /* FolderViewController.swift */,
-				9E8372E3240CE66E00E8A398 /* HomeViewController.swift */,
-				9E8372E4240CE66E00E8A398 /* RecordingTableViewCell.swift */,
-				9E8372E5240CE66E00E8A398 /* RecordViewController.swift */,
 				9E976335230F8D5600EBAED0 /* AppDelegate.swift */,
-				9E61601523154C020000863D /* ViewController.swift */,
+				9E8372EC240CE92900E8A398 /* Contoroller */,
+				9E8372EB240CE8F300E8A398 /* View */,
 				9E976337230F8D5600EBAED0 /* DetailViewController.swift */,
-				9E976347230F8EC900EBAED0 /* AudioData.swift */,
-				9E61601323154AB30000863D /* MemoData.swift */,
-				9E976339230F8D5600EBAED0 /* Main.storyboard */,
+				9E61601523154C020000863D /* ViewController.swift */,
 				9ED6A1522312959200D44682 /* CustomCell.swift */,
+				9E61601323154AB30000863D /* MemoData.swift */,
+				9E976347230F8EC900EBAED0 /* AudioData.swift */,
 				9ED6A1532312959200D44682 /* CustomCell.xib */,
-				9E97633C230F8D5700EBAED0 /* Assets.xcassets */,
-				9E97633E230F8D5700EBAED0 /* LaunchScreen.storyboard */,
-				9E976341230F8D5700EBAED0 /* Info.plist */,
+				9E226C10240CEA2F00C35D92 /* Resouse */,
 			);
 			path = VoiceMemoApp;
 			sourceTree = "<group>";
@@ -399,7 +423,7 @@
 				CODE_SIGN_STYLE = Automatic;
 				CURRENT_PROJECT_VERSION = 1.0.2;
 				DEVELOPMENT_TEAM = W993QJ4778;
-				INFOPLIST_FILE = VoiceMemoApp/Info.plist;
+				INFOPLIST_FILE = VoiceMemoApp/Resouse/Info.plist;
 				LD_RUNPATH_SEARCH_PATHS = (
 					"$(inherited)",
 					"@executable_path/Frameworks",
@@ -420,7 +444,7 @@
 				CODE_SIGN_STYLE = Automatic;
 				CURRENT_PROJECT_VERSION = 1.0.2;
 				DEVELOPMENT_TEAM = W993QJ4778;
-				INFOPLIST_FILE = VoiceMemoApp/Info.plist;
+				INFOPLIST_FILE = VoiceMemoApp/Resouse/Info.plist;
 				LD_RUNPATH_SEARCH_PATHS = (
 					"$(inherited)",
 					"@executable_path/Frameworks",
