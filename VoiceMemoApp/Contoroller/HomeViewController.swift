@@ -10,8 +10,9 @@ import RealmSwift
 import UIKit
 
 class HomeViewController: UIViewController {
-    let realm = try! Realm()
-    var memoDataArray = try! Realm().objects(MemoData.self).sorted(byKeyPath: "order", ascending: false)
+    let memoDataBrain = MemoDataBrain()
+    let audioDataBrain = AudioDataBrain()
+    var memoDataArray: Results<MemoData>?
     var documentPath = FileManager.default.urls(for: .documentDirectory, in: .userDomainMask)[0]
 
     @IBOutlet var tableView: UITableView!
@@ -28,6 +29,8 @@ class HomeViewController: UIViewController {
         tableView.delegate = self
 
         navigationItem.rightBarButtonItem = editButtonItem
+
+        memoDataArray = memoDataBrain.getAllMemoData()
     }
 
     override func setEditing(_ editing: Bool, animated: Bool) {
@@ -40,24 +43,14 @@ class HomeViewController: UIViewController {
     override func prepare(for segue: UIStoryboardSegue, sender _: Any?) {
         let folderVC = segue.destination as! FolderViewController
 
+        // 既存データで遷移
         if segue.identifier == "tappedCellSegue" {
             let indexPath = tableView.indexPathForSelectedRow!
-            folderVC.memoDataPrimaryKey = memoDataArray[indexPath.row].id
+            folderVC.memoDataPrimaryKey = memoDataArray![indexPath.row].id
 
         } else {
-            do {
-                try realm.write {
-                    let memoData = MemoData()
-                    let allMemoData = realm.objects(MemoData.self)
-                    if allMemoData.count != 0 {
-                        memoData.id = allMemoData.max(ofProperty: "id")! + 1
-                    }
-                    realm.add(memoData)
-                    folderVC.memoDataPrimaryKey = memoData.id
-                }
-            } catch {
-                print("DEBUG_ERROR: 新規フォルダー作成時")
-            }
+            // 新規データで遷移
+            folderVC.memoDataPrimaryKey = memoDataBrain.createNewMemoData()!.id
         }
     }
 }
@@ -66,13 +59,13 @@ class HomeViewController: UIViewController {
 
 extension HomeViewController: UITableViewDataSource {
     func tableView(_: UITableView, numberOfRowsInSection _: Int) -> Int {
-        return memoDataArray.count
+        return memoDataArray!.count
     }
 
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
         let cell = tableView.dequeueReusableCell(withIdentifier: "FolderCell", for: indexPath) as! FolderCell
 
-        cell.folderNameLabel.text = memoDataArray[indexPath.row].title
+        cell.folderNameLabel.text = memoDataArray![indexPath.row].title
         return cell
     }
 }
@@ -89,29 +82,20 @@ extension HomeViewController: UITableViewDelegate {
     // MARK: - TableViewCell Delete Method
 
     func tableView(_ tableView: UITableView, commit editingStyle: UITableViewCell.EditingStyle, forRowAt indexPath: IndexPath) {
-        print("Cell Delete")
         if editingStyle == .delete {
-            let memoData = memoDataArray[indexPath.row]
+            let memoData = memoDataArray![indexPath.row]
 
             for audioData in memoData.audioDatas {
                 do {
-                    let url = documentPath.appendingPathComponent("\(audioData.id).m4a")
-                    try FileManager.default.removeItem(at: url)
-                    try realm.write {
-                        realm.delete(audioData)
-                    }
+                    // let url = documentPath.appendingPathComponent("\(audioData.id).m4a")
+                    // try FileManager.default.removeItem(at: url)
+                    audioDataBrain.delete(data: audioData)
                 } catch {
                     print("DEBUG_ERROR: セル消去時")
                 }
             }
 
-            do {
-                try realm.write {
-                    realm.delete(memoData)
-                }
-            } catch {
-                print("DEBUG_ERROR: セル消去時")
-            }
+            memoDataBrain.delete(data: memoData)
 
             tableView.deleteRows(at: [indexPath], with: .fade)
             tableView.reloadData()
@@ -125,23 +109,16 @@ extension HomeViewController: UITableViewDelegate {
     }
 
     func tableView(_ tableView: UITableView, moveRowAt sourceIndexPath: IndexPath, to destinationIndexPath: IndexPath) {
-        let sourceMD = memoDataArray[sourceIndexPath.row]
-        let destinationMD = memoDataArray[destinationIndexPath.row]
+        let sourceMD = memoDataArray![sourceIndexPath.row]
+        let destinationMD = memoDataArray![destinationIndexPath.row]
         let destinationMDOrder = destinationMD.order
 
-        try! realm.write {
-            if sourceIndexPath.row < destinationIndexPath.row {
-                for index in sourceIndexPath.row ... destinationIndexPath.row {
-                    let md = memoDataArray[index]
-                    md.order += 1
-                }
-            } else {
-                for index in (destinationIndexPath.row ..< sourceIndexPath.row).reversed() {
-                    let md = memoDataArray[index]
-                    md.order -= 1
-                }
-            }
-            sourceMD.order = destinationMDOrder
+        if sourceIndexPath.row < destinationIndexPath.row {
+            let indexes = sourceIndexPath.row ... destinationIndexPath.row
+            memoDataBrain.upOrder(datas: memoDataArray!, indexes: indexes, sourceData: sourceMD, destinationOrder: destinationMDOrder)
+        } else {
+            let indexes = (destinationIndexPath.row ..< sourceIndexPath.row).reversed()
+            memoDataBrain.downOrder(datas: memoDataArray!, indexes: indexes, sourceData: sourceMD, destinationOrder: destinationMDOrder)
         }
         tableView.reloadData()
     }

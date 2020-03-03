@@ -10,7 +10,8 @@ import RealmSwift
 import UIKit
 
 class FolderViewController: UIViewController {
-    let realm = try! Realm()
+    let memoDataBrain = MemoDataBrain()
+    let audioDataBrain = AudioDataBrain()
     var memoDataPrimaryKey: Int?
     private var memoData: MemoData = MemoData()
     var sortedAudioDatas: Results<AudioData> {
@@ -39,9 +40,8 @@ class FolderViewController: UIViewController {
         navigationItem.rightBarButtonItem = editButtonItem
         setupToolBar()
 
-        if let data = realm.object(ofType: MemoData.self, forPrimaryKey: memoDataPrimaryKey) {
-            memoData = data
-        }
+        memoData = memoDataBrain.getMemoData(primaryKey: memoDataPrimaryKey)
+
         folderTitleTextField.text = memoData.title
         contentTextView.text = memoData.content
     }
@@ -54,19 +54,9 @@ class FolderViewController: UIViewController {
     // MARK: - View Will Disappear with update data
 
     override func viewWillDisappear(_: Bool) {
-        do {
-            try realm.write {
-                if folderTitleTextField.text == "" {
-                    memoData.title = "Folder"
-                } else {
-                    memoData.title = folderTitleTextField.text!
-                }
-                memoData.content = contentTextView.text
-                realm.add(memoData)
-            }
-        } catch {
-            print("DEBUG_ERROR: MemoData Update")
-        }
+        let title = folderTitleTextField.text!
+        let content = contentTextView.text!
+        memoDataBrain.saveTitle(data: memoData, title: title, content: content)
     }
 }
 
@@ -81,23 +71,9 @@ extension FolderViewController {
             playVC.audioData = sortedAudioDatas[indexPath!.row]
         } else {
             // recordVCへの遷移
-            do {
-                try realm.write {
-                    let audioData = AudioData()
-                    if memoData.audioDatas.count != 0 {
-                        audioData.id = memoData.audioDatas.max(ofProperty: "id")! + 1
-                        audioData.order = memoData.audioDatas.max(ofProperty: "order")!
-                    } else {
-                        audioData.id = Int("\(memoData.id)\(memoData.id)\(audioData.id)")!
-                    }
-                    memoData.audioDatas.append(audioData)
-                    let recordVC = segue.destination as! RecordViewController
-                    recordVC.audioData = audioData
-                    tableView.reloadData()
-                }
-            } catch {
-                print("DEBUG_ERROR: 新規AudioData作成時")
-            }
+            let recordVC = segue.destination as! RecordViewController
+            recordVC.audioData = memoDataBrain.addNewAudioData(data: memoData)
+            tableView.reloadData()
         }
     }
 }
@@ -124,8 +100,6 @@ extension FolderViewController: UITableViewDataSource {
     }
 }
 
-// MARK: - TableView Dlegate
-
 extension FolderViewController: UITableViewDelegate {
     // MARK: - TableViewCell Tapped
 
@@ -142,9 +116,7 @@ extension FolderViewController: UITableViewDelegate {
             do {
                 // let url = documentPath.appendingPathComponent("\(audioData.id).m4a")
                 // try FileManager.default.removeItem(at: url)
-                try realm.write {
-                    realm.delete(audioData)
-                }
+                audioDataBrain.delete(data: audioData)
             } catch {
                 print("DEBUG_ERROR: TableViewCell Delete時")
             }
@@ -160,28 +132,19 @@ extension FolderViewController: UITableViewDelegate {
     }
 
     func tableView(_ tableView: UITableView, moveRowAt sourceIndexPath: IndexPath, to destinationIndexPath: IndexPath) {
-        do {
-            try realm.write {
-                let sourceAD: AudioData = sortedAudioDatas[sourceIndexPath.row]
-                let destinationAD = sortedAudioDatas[destinationIndexPath.row]
-                let destinationADOrder = destinationAD.order
-                if sourceIndexPath.row < destinationIndexPath.row {
-                    for index in sourceIndexPath.row ... destinationIndexPath.row {
-                        let ad = sortedAudioDatas[index]
-                        ad.order += 1
-                    }
-                } else {
-                    for index in (destinationIndexPath.row ..< sourceIndexPath.row).reversed() {
-                        let ad = sortedAudioDatas[index]
-                        ad.order -= 1
-                    }
-                }
-                sourceAD.order = destinationADOrder
-                tableView.reloadData()
-            }
-        } catch {
-            print("DEBUG_ERRPR: TableViewCell 移動時")
+        let sourceAD: AudioData = sortedAudioDatas[sourceIndexPath.row]
+        let destinationAD = sortedAudioDatas[destinationIndexPath.row]
+        let destinationADOrder = destinationAD.order
+
+        if sourceIndexPath.row < destinationIndexPath.row {
+            let indexes = sourceIndexPath.row ... destinationIndexPath.row
+            audioDataBrain.upOrder(datas: sortedAudioDatas, indexes: indexes, sourceData: sourceAD, destinationOrder: destinationADOrder)
+        } else {
+            let indexes = (destinationIndexPath.row ..< sourceIndexPath.row).reversed()
+            audioDataBrain.downOrder(datas: sortedAudioDatas, indexes: indexes, sourceData: sourceAD, destinationOrder: destinationADOrder)
         }
+
+        tableView.reloadData()
     }
 }
 

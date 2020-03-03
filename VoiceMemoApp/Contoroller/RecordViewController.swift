@@ -10,20 +10,27 @@ import RealmSwift
 import UIKit
 
 class RecordViewController: UIViewController {
-    private let realm = try! Realm()
     var audioData: AudioData!
+    let audioDataBrain = AudioDataBrain()
+
+    @IBOutlet var recordingTitleTextField: UITextField!
+    @IBOutlet var contentTextView: UITextView!
+    @IBOutlet var isRecordLabel: UILabel!
+    @IBOutlet var recordingButton: UIButton!
+    @IBOutlet var currentTimeLabel: UILabel!
 
     override func viewDidLoad() {
         super.viewDidLoad()
+
+        recordingTitleTextField.text = audioData.titile
     }
 
-    /*
-     // MARK: - Navigation
+    // MARK: - ViewDidDisappear with AudioData updating
 
-     // In a storyboard-based application, you will often want to do a little preparation before navigation
-     override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
-         // Get the new view controller using segue.destination.
-         // Pass the selected object to the new view controller.
-     }
-     */
+    override func viewWillDisappear(_ animated: Bool) {
+        super.viewWillDisappear(animated)
+        audioDataBrain.saveTitle(title: recordingTitleTextField.text!, data: audioData)
+    }
+
+    @IBAction func recordingButtonPressed(_: UIButton) {}
 }
