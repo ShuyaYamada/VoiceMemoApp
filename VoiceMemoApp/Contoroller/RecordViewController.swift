@@ -10,7 +10,6 @@ import RealmSwift
 import UIKit
 
 class RecordViewController: UIViewController {
-    private let realm = try! Realm()
     var audioData: AudioData!
     var audioDataBrain = AudioDataBrain()
 
