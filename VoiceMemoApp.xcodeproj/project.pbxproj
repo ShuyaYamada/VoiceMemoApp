@@ -8,6 +8,7 @@
 
 /* Begin PBXBuildFile section */
 		65A658ECFDCAC2AC7B35EE50 /* Pods_VoiceMemoApp.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 2E0BAFAD6DDF6138B156A24D /* Pods_VoiceMemoApp.framework */; };
+		9E329551240E415600669BF8 /* PlayViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9E329550240E415600669BF8 /* PlayViewController.swift */; };
 		9E61601423154AB30000863D /* MemoData.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9E61601323154AB30000863D /* MemoData.swift */; };
 		9E61601623154C020000863D /* ViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9E61601523154C020000863D /* ViewController.swift */; };
 		9E8372E6240CE66E00E8A398 /* FolderViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9E8372E1240CE66E00E8A398 /* FolderViewController.swift */; };
@@ -16,7 +17,6 @@
 		9E8372E9240CE66E00E8A398 /* RecordingTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9E8372E4240CE66E00E8A398 /* RecordingTableViewCell.swift */; };
 		9E8372EA240CE66E00E8A398 /* RecordViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9E8372E5240CE66E00E8A398 /* RecordViewController.swift */; };
 		9E976336230F8D5600EBAED0 /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9E976335230F8D5600EBAED0 /* AppDelegate.swift */; };
-		9E976338230F8D5600EBAED0 /* DetailViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9E976337230F8D5600EBAED0 /* DetailViewController.swift */; };
 		9E97633B230F8D5600EBAED0 /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 9E976339230F8D5600EBAED0 /* Main.storyboard */; };
 		9E97633D230F8D5700EBAED0 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 9E97633C230F8D5700EBAED0 /* Assets.xcassets */; };
 		9E976340230F8D5700EBAED0 /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 9E97633E230F8D5700EBAED0 /* LaunchScreen.storyboard */; };
@@ -29,6 +29,7 @@
 		15C941620CF31E813E2D8500 /* Pods-VoiceMemoApp.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-VoiceMemoApp.release.xcconfig"; path = "Target Support Files/Pods-VoiceMemoApp/Pods-VoiceMemoApp.release.xcconfig"; sourceTree = "<group>"; };
 		2E0BAFAD6DDF6138B156A24D /* Pods_VoiceMemoApp.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_VoiceMemoApp.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 		42BAB9AEDBAD9DBAE7B1D31C /* Pods-VoiceMemoApp.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-VoiceMemoApp.debug.xcconfig"; path = "Target Support Files/Pods-VoiceMemoApp/Pods-VoiceMemoApp.debug.xcconfig"; sourceTree = "<group>"; };
+		9E329550240E415600669BF8 /* PlayViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PlayViewController.swift; sourceTree = "<group>"; };
 		9E61601323154AB30000863D /* MemoData.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MemoData.swift; sourceTree = "<group>"; };
 		9E61601523154C020000863D /* ViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ViewController.swift; sourceTree = "<group>"; };
 		9E8372E1240CE66E00E8A398 /* FolderViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = FolderViewController.swift; sourceTree = "<group>"; };
@@ -38,7 +39,6 @@
 		9E8372E5240CE66E00E8A398 /* RecordViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = RecordViewController.swift; sourceTree = "<group>"; };
 		9E976332230F8D5600EBAED0 /* VoiceMemoApp.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = VoiceMemoApp.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		9E976335230F8D5600EBAED0 /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
-		9E976337230F8D5600EBAED0 /* DetailViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DetailViewController.swift; sourceTree = "<group>"; };
 		9E97633A230F8D5600EBAED0 /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/Main.storyboard; sourceTree = "<group>"; };
 		9E97633C230F8D5700EBAED0 /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
 		9E97633F230F8D5700EBAED0 /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/LaunchScreen.storyboard; sourceTree = "<group>"; };
@@ -94,6 +94,7 @@
 				9E8372E3240CE66E00E8A398 /* HomeViewController.swift */,
 				9E8372E1240CE66E00E8A398 /* FolderViewController.swift */,
 				9E8372E5240CE66E00E8A398 /* RecordViewController.swift */,
+				9E329550240E415600669BF8 /* PlayViewController.swift */,
 			);
 			path = Contoroller;
 			sourceTree = "<group>";
@@ -122,7 +123,6 @@
 				9E976335230F8D5600EBAED0 /* AppDelegate.swift */,
 				9E8372EC240CE92900E8A398 /* Contoroller */,
 				9E8372EB240CE8F300E8A398 /* View */,
-				9E976337230F8D5600EBAED0 /* DetailViewController.swift */,
 				9E61601523154C020000863D /* ViewController.swift */,
 				9ED6A1522312959200D44682 /* CustomCell.swift */,
 				9E61601323154AB30000863D /* MemoData.swift */,
@@ -154,6 +154,7 @@
 				9E97632F230F8D5600EBAED0 /* Frameworks */,
 				9E976330230F8D5600EBAED0 /* Resources */,
 				F93C4147D2B129F2E632E398 /* [CP] Embed Pods Frameworks */,
+				9E32954F240E2C1B00669BF8 /* ShellScript */,
 			);
 			buildRules = (
 			);
@@ -239,6 +240,23 @@
 			shellScript = "diff \"${PODS_PODFILE_DIR_PATH}/Podfile.lock\" \"${PODS_ROOT}/Manifest.lock\" > /dev/null\nif [ $? != 0 ] ; then\n    # print error to STDERR\n    echo \"error: The sandbox is not in sync with the Podfile.lock. Run 'pod install' or update your CocoaPods installation.\" >&2\n    exit 1\nfi\n# This output is used by Xcode 'outputs' to avoid re-running this script phase.\necho \"SUCCESS\" > \"${SCRIPT_OUTPUT_FILE_0}\"\n";
 			showEnvVarsInLog = 0;
 		};
+		9E32954F240E2C1B00669BF8 /* ShellScript */ = {
+			isa = PBXShellScriptBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			inputFileListPaths = (
+			);
+			inputPaths = (
+			);
+			outputFileListPaths = (
+			);
+			outputPaths = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+			shellPath = /bin/sh;
+			shellScript = "# Type a script or drag a script file from your workspace to insert its path.\nif [ $CONFIGURATION = \"Debug\" ]; then\n\"${PODS_ROOT}/SwiftFormat/CommandLineTool/swiftformat\" .\nfi\n";
+		};
 		F93C4147D2B129F2E632E398 /* [CP] Embed Pods Frameworks */ = {
 			isa = PBXShellScriptBuildPhase;
 			buildActionMask = 2147483647;
@@ -267,9 +285,9 @@
 				9E8372E9240CE66E00E8A398 /* RecordingTableViewCell.swift in Sources */,
 				9E8372E6240CE66E00E8A398 /* FolderViewController.swift in Sources */,
 				9E976348230F8EC900EBAED0 /* AudioData.swift in Sources */,
+				9E329551240E415600669BF8 /* PlayViewController.swift in Sources */,
 				9E61601423154AB30000863D /* MemoData.swift in Sources */,
 				9E8372EA240CE66E00E8A398 /* RecordViewController.swift in Sources */,
-				9E976338230F8D5600EBAED0 /* DetailViewController.swift in Sources */,
 				9E8372E8240CE66E00E8A398 /* HomeViewController.swift in Sources */,
 				9ED6A1542312959200D44682 /* CustomCell.swift in Sources */,
 				9E976336230F8D5600EBAED0 /* AppDelegate.swift in Sources */,

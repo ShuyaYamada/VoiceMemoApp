@@ -7,5 +7,6 @@ target 'VoiceMemoApp' do
 
   # Pods for VoiceMemoApp
   pod 'RealmSwift' , '~> 4.3.2'
+  pod 'SwiftFormat/CLI'
 
 end

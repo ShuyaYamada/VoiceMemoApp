@@ -261,10 +261,10 @@
             </objects>
             <point key="canvasLocation" x="1692" y="23.838080959520241"/>
         </scene>
-        <!--Detail View Controller-->
+        <!--Play View Controller-->
         <scene sceneID="Ugg-9y-9Wa">
             <objects>
-                <viewController id="3KJ-ak-QBy" customClass="DetailViewController" customModule="VoiceMemoApp" customModuleProvider="target" sceneMemberID="viewController">
+                <viewController id="3KJ-ak-QBy" customClass="PlayViewController" customModule="VoiceMemoApp" customModuleProvider="target" sceneMemberID="viewController">
                     <view key="view" contentMode="scaleToFill" id="eWw-r4-bhx">
                         <rect key="frame" x="0.0" y="0.0" width="375" height="647"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
@@ -489,6 +489,7 @@
                     <navigationBar key="navigationBar" contentMode="scaleToFill" insetsLayoutMarginsFromSafeArea="NO" barStyle="black" translucent="NO" largeTitles="YES" id="NyI-L5-cPF">
                         <rect key="frame" x="0.0" y="0.0" width="375" height="104.5"/>
                         <autoresizingMask key="autoresizingMask"/>
+                        <color key="tintColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                         <color key="barTintColor" cocoaTouchSystemColor="darkTextColor"/>
                         <textAttributes key="titleTextAttributes">
                             <color key="textColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>

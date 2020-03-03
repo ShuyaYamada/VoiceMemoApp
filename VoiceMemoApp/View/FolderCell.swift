@@ -9,9 +9,8 @@
 import UIKit
 
 class FolderCell: UITableViewCell {
+    @IBOutlet var folderNameLabel: UILabel!
 
-    @IBOutlet weak var folderNameLabel: UILabel!
-    
     override func awakeFromNib() {
         super.awakeFromNib()
     }
@@ -19,5 +18,4 @@ class FolderCell: UITableViewCell {
     override func setSelected(_ selected: Bool, animated: Bool) {
         super.setSelected(selected, animated: animated)
     }
-
 }

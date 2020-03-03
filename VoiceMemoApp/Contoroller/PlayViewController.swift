@@ -1,14 +1,18 @@
 //
-//  DetailViewController.swift
-//  RefactoringVoiceMemoApp
+//  PlayViewController.swift
+//  VoiceMemoApp
 //
-//  Created by ShuyaYamada on 2020/03/01.
+//  Created by ShuyaYamada on 2020/03/03.
 //  Copyright © 2020 ShuyaYamada. All rights reserved.
 //
 
 import UIKit
+import RealmSwift
 
-class DetailViewController: UIViewController {
+class PlayViewController: UIViewController {
+    
+    private let realm = try! Realm()
+    var audioData: AudioData!
 
     override func viewDidLoad() {
         super.viewDidLoad()
