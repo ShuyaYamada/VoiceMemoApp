@@ -7,13 +7,17 @@
 //
 
 import UIKit
+import RealmSwift
 
 class RecordViewController: UIViewController {
+    
+    let realm = try! Realm()
+    var audioData: AudioData!
 
     override func viewDidLoad() {
         super.viewDidLoad()
 
-        // Do any additional setup after loading the view.
+
     }
     
 

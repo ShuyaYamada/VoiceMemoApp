@@ -17,9 +17,9 @@ class MemoData: Object {
     @objc dynamic var order = 0
     
     //Memoの内容
-    @objc dynamic var title = ""
+    @objc dynamic var title = "テスト"
     @objc dynamic var content = "メモを追加"
-    var audioDatas = List<AudioData>()
+    let audioDatas = List<AudioData>()
     
     
     override static func primaryKey() -> String {

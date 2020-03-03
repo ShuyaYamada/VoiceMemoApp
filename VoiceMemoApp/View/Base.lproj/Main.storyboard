@@ -64,7 +64,6 @@
                                 <fontDescription key="fontDescription" type="boldSystem" pointSize="50"/>
                                 <state key="normal" image="AddButton"/>
                                 <connections>
-                                    <action selector="AddButtonPressed:" destination="cHV-Hd-DNJ" eventType="touchUpInside" id="xSF-Oc-HaV"/>
                                     <segue destination="Y9X-D7-fht" kind="show" identifier="" id="YU6-vR-Mdl"/>
                                 </connections>
                             </button>
@@ -218,10 +217,10 @@
                                             <constraint firstAttribute="height" constant="40" id="ns7-al-lq6"/>
                                         </constraints>
                                     </imageView>
-                                    <textField opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="center" text="フォルダ名" textAlignment="natural" minimumFontSize="17" translatesAutoresizingMaskIntoConstraints="NO" id="tkv-ZJ-Qtb">
+                                    <textField opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="center" text="フォルダ名" textAlignment="natural" minimumFontSize="17" clearButtonMode="whileEditing" translatesAutoresizingMaskIntoConstraints="NO" id="tkv-ZJ-Qtb">
                                         <rect key="frame" x="52" y="0.0" width="318" height="40"/>
                                         <fontDescription key="fontDescription" type="boldSystem" pointSize="20"/>
-                                        <textInputTraits key="textInputTraits" enablesReturnKeyAutomatically="YES"/>
+                                        <textInputTraits key="textInputTraits" returnKeyType="done"/>
                                     </textField>
                                 </subviews>
                                 <constraints>
@@ -252,6 +251,8 @@
                     </view>
                     <navigationItem key="navigationItem" id="oyG-7g-1Nz"/>
                     <connections>
+                        <outlet property="contentTextView" destination="VyU-X1-FIj" id="mzx-v8-XeZ"/>
+                        <outlet property="folderTitleTextField" destination="tkv-ZJ-Qtb" id="Hoa-Cv-ld0"/>
                         <outlet property="tableView" destination="Oem-HO-a3y" id="toU-xw-jLR"/>
                         <segue destination="3KJ-ak-QBy" kind="presentation" identifier="tappedRecordingSegue" id="rd1-nU-95y"/>
                     </connections>
@@ -384,7 +385,7 @@
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="cbj-mC-aaD" userLabel="First Responder" customClass="UIResponder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="2509.5999999999999" y="22.938530734632685"/>
+            <point key="canvasLocation" x="2420" y="24"/>
         </scene>
         <!--Record View Controller-->
         <scene sceneID="9tu-56-wDg">
@@ -478,7 +479,7 @@
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="WM6-2F-el9" userLabel="First Responder" customClass="UIResponder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="2509.5999999999999" y="705.69715142428788"/>
+            <point key="canvasLocation" x="1692" y="749"/>
         </scene>
         <!--Navigation Controller-->
         <scene sceneID="nOs-I8-jwZ">
@@ -518,6 +519,6 @@
         <image name="mic.fill" catalog="system" width="54" height="64"/>
     </resources>
     <inferredMetricsTieBreakers>
-        <segue reference="YU6-vR-Mdl"/>
+        <segue reference="tDC-9b-yMO"/>
     </inferredMetricsTieBreakers>
 </document>

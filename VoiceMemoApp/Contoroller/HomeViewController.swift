@@ -35,24 +35,42 @@ class HomeViewController: UIViewController {
         tableView.isEditing = editing
     }
     
-    //MARK: - AddButton Method
-    @IBAction func AddButtonPressed(_ sender: UIButton) {
-        print("Add Button Pressed")
+    
+    //MARK: - Destination FolderVC
+    override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
+        let folderVC = segue.destination as! FolderViewController
         
-        do {
-            try realm.write {
-                let memoData = MemoData()
-                let allMemoData = realm.objects(MemoData.self)
-                if allMemoData.count != 0 {
-                    memoData.id = allMemoData.max(ofProperty: "id")! + 1
+        if segue.identifier == "tappedCellSegue" {
+            
+            do {
+                try realm.write {
+                    let indexPath = self.tableView.indexPathForSelectedRow!
+                    folderVC.memoDataPrimaryKey = memoDataArray[indexPath.row].id
                 }
-                realm.add(memoData)
+            } catch {
+                print("DEBUG_ERROR: 既存データでの遷移時")
             }
-        } catch {
-            print("DEBUG_ERROR: 新規フォルダー作成時")
+            
+        } else {
+            
+            do {
+                try realm.write {
+                    let memoData = MemoData()
+                    let allMemoData = realm.objects(MemoData.self)
+                    if allMemoData.count != 0 {
+                        memoData.id = allMemoData.max(ofProperty: "id")! + 1
+                    }
+                    realm.add(memoData)
+                    folderVC.memoDataPrimaryKey = memoData.id
+                }
+            } catch {
+                print("DEBUG_ERROR: 新規フォルダー作成時")
+            }
+            
         }
     }
 }
+
 
 //MARK: - TableView DataSouce
 extension HomeViewController: UITableViewDataSource {
@@ -67,12 +85,16 @@ extension HomeViewController: UITableViewDataSource {
     }
 }
 
+
+//MARK: - TableView Delegate
 extension HomeViewController: UITableViewDelegate {
+    
     
     //MARK: - TableViewCell Tapped
     func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
         performSegue(withIdentifier: "tappedCellSegue", sender: nil)
     }
+    
     
     //MARK: - TableViewCell Delete Method
     func tableView(_ tableView: UITableView, commit editingStyle: UITableViewCell.EditingStyle, forRowAt indexPath: IndexPath) {
@@ -105,6 +127,7 @@ extension HomeViewController: UITableViewDelegate {
             tableView.reloadData()
         }
     }
+    
     
     //MARK: - TableViewCell Move Method
     func tableView(_ tableView: UITableView, canMoveRowAt indexPath: IndexPath) -> Bool {
