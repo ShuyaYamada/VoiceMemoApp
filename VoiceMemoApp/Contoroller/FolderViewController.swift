@@ -7,10 +7,16 @@
 //
 
 import UIKit
+import RealmSwift
 
 class FolderViewController: UIViewController {
+    
+    let realm = try! Realm()
+    var memoData: MemoData!
 
     @IBOutlet weak var tableView: UITableView!
+    @IBOutlet weak var folderTitleTextField: UITextField!
+    @IBOutlet weak var contentTextView: UITextView!
     
     var recordings = ["testtesttesttesttesttesttesttesttesttest", "home", "pods", "ipad"]
     
@@ -19,6 +25,9 @@ class FolderViewController: UIViewController {
 
         tableView.dataSource = self
         tableView.delegate = self
+        
+        folderTitleTextField.text = memoData.title
+        contentTextView.text = memoData.content
     }
 }
 
