@@ -10,8 +10,8 @@ import RealmSwift
 import UIKit
 
 class FolderViewController: UIViewController {
-    var memoDataBrain = MemoDataBrain()
-    var audioDataBrain = AudioDataBrain()
+    let memoDataBrain = MemoDataBrain()
+    let audioDataBrain = AudioDataBrain()
     var memoDataPrimaryKey: Int?
     private var memoData: MemoData = MemoData()
     var sortedAudioDatas: Results<AudioData> {
@@ -99,7 +99,6 @@ extension FolderViewController: UITableViewDataSource {
         return cell
     }
 }
-
 
 extension FolderViewController: UITableViewDelegate {
     // MARK: - TableViewCell Tapped

@@ -12,7 +12,7 @@ import UIKit
 class PlayViewController: UIViewController {
     private let realm = try! Realm()
     var audioData: AudioData!
-    var audioDataBrain = AudioDataBrain()
+    let audioDataBrain = AudioDataBrain()
 
     @IBOutlet var recordingTitleTextField: UITextField!
     @IBOutlet var recordingContentTextView: UITextView!

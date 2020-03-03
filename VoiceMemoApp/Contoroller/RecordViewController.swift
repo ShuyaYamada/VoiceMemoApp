@@ -11,7 +11,7 @@ import UIKit
 
 class RecordViewController: UIViewController {
     var audioData: AudioData!
-    var audioDataBrain = AudioDataBrain()
+    let audioDataBrain = AudioDataBrain()
 
     @IBOutlet var recordingTitleTextField: UITextField!
     @IBOutlet var contentTextView: UITextView!
