@@ -261,10 +261,10 @@
             </objects>
             <point key="canvasLocation" x="1692" y="23.838080959520241"/>
         </scene>
-        <!--Detail View Controller-->
+        <!--Play View Controller-->
         <scene sceneID="Ugg-9y-9Wa">
             <objects>
-                <viewController id="3KJ-ak-QBy" customClass="DetailViewController" customModule="VoiceMemoApp" customModuleProvider="target" sceneMemberID="viewController">
+                <viewController id="3KJ-ak-QBy" customClass="PlayViewController" customModule="VoiceMemoApp" customModuleProvider="target" sceneMemberID="viewController">
                     <view key="view" contentMode="scaleToFill" id="eWw-r4-bhx">
                         <rect key="frame" x="0.0" y="0.0" width="375" height="647"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
