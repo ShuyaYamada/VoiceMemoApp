@@ -10,21 +10,21 @@ import Foundation
 import RealmSwift
 
 class AudioData: Object {
-    //PrimaryKey
+    // PrimaryKey
     @objc dynamic var id = 0
-    
-    //セルの並べ替えのための値
+
+    // セルの並べ替えのための値
     @objc dynamic var order = 0
-    
+
     @objc dynamic var titile = "新規録音"
-    
+
     @objc dynamic var date = Date()
-    
-    //cellのexpandViewをコントロールするための値
+
+    // cellのexpandViewをコントロールするための値
     @objc dynamic var isClosed = true
-    
+
     let parentMemoData = LinkingObjects(fromType: MemoData.self, property: "audioDatas")
-    
+
     override static func primaryKey() -> String {
         return "id"
     }

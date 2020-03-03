@@ -10,18 +10,17 @@ import Foundation
 import RealmSwift
 
 class MemoData: Object {
-    //PrimaryKey
+    // PrimaryKey
     @objc dynamic var id = 10
-    
-    //並び替えに使う値
+
+    // 並び替えに使う値
     @objc dynamic var order = 0
-    
-    //Memoの内容
+
+    // Memoの内容
     @objc dynamic var title = "テスト"
     @objc dynamic var content = "メモを追加"
     let audioDatas = List<AudioData>()
-    
-    
+
     override static func primaryKey() -> String {
         return "id"
     }

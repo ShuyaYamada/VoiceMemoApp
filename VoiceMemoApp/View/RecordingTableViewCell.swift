@@ -9,11 +9,10 @@
 import UIKit
 
 class RecordingTableViewCell: UITableViewCell {
+    @IBOutlet var dateLabel: UILabel!
+    @IBOutlet var recordingName: UILabel!
+    @IBOutlet var recordingTimeLabel: UILabel!
 
-    @IBOutlet weak var dateLabel: UILabel!
-    @IBOutlet weak var recordingName: UILabel!
-    @IBOutlet weak var recordingTimeLabel: UILabel!
-    
     override func awakeFromNib() {
         super.awakeFromNib()
     }
@@ -21,5 +20,4 @@ class RecordingTableViewCell: UITableViewCell {
     override func setSelected(_ selected: Bool, animated: Bool) {
         super.setSelected(selected, animated: animated)
     }
-
 }
