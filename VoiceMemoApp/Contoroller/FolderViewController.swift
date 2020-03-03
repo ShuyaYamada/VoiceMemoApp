@@ -49,6 +49,37 @@ class FolderViewController: UIViewController {
     }
 }
 
+
+//MARK: - Destination Record or Play ViewController
+extension FolderViewController {
+    override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
+        if segue.identifier == "tappedRecordingSegue" {
+            //playVCへの遷移
+            
+        } else {
+            //recordVCへの遷移
+            do {
+                try realm.write {
+                    let audioData = AudioData()
+                    if memoData.audioDatas.count != 0 {
+                        audioData.id = memoData.audioDatas.max(ofProperty: "id")! + 1
+                        audioData.order = memoData.audioDatas.max(ofProperty: "order")!
+                    } else {
+                        audioData.id = Int("\(memoData.id)\(memoData.id)\(audioData.id)")!
+                    }
+                    memoData.audioDatas.append(audioData)
+                    let recordVC = segue.destination as! RecordViewController
+                    recordVC.audioData = audioData
+                }
+            } catch {
+                print("DEBUG_ERROR: 新規AudioData作成時")
+            }
+        }
+    }
+}
+
+
+
 //MARK: - TableView DataSouce
 extension FolderViewController: UITableViewDataSource {
     func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
@@ -61,6 +92,8 @@ extension FolderViewController: UITableViewDataSource {
     }
 }
 
+
+//MARK: - TableView Dlegate
 extension FolderViewController: UITableViewDelegate {
     
     //MARK: - TableViewCell Tapped
