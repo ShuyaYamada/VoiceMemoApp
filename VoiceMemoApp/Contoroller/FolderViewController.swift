@@ -29,6 +29,24 @@ class FolderViewController: UIViewController {
         folderTitleTextField.text = memoData.title
         contentTextView.text = memoData.content
     }
+    
+    
+    //MARK: - View Will Disappear with update data
+    override func viewWillDisappear(_ animated: Bool) {
+        do {
+            try realm.write {
+                if folderTitleTextField.text == "" {
+                    memoData.title = "Folder"
+                } else {
+                    memoData.title = folderTitleTextField.text!
+                }
+                memoData.content = contentTextView.text
+                realm.add(memoData)
+            }
+        } catch {
+            print("DEBUG_ERROR: MemoData Update")
+        }
+    }
 }
 
 //MARK: - TableView DataSouce
