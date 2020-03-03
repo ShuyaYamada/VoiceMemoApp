@@ -76,7 +76,9 @@ extension FolderViewController {
     override func prepare(for segue: UIStoryboardSegue, sender _: Any?) {
         if segue.identifier == "tappedRecordingSegue" {
             // playVCへの遷移
-
+            let playVC = segue.destination as! PlayViewController
+            let indexPath = tableView.indexPathForSelectedRow
+            playVC.audioData = sortedAudioDatas[indexPath!.row]
         } else {
             // recordVCへの遷移
             do {
@@ -109,7 +111,6 @@ extension FolderViewController: UITableViewDataSource {
 
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
         let cell = tableView.dequeueReusableCell(withIdentifier: "RecordingCell", for: indexPath) as! RecordingTableViewCell
-        // memoData.audioDatas.sorted(byKeyPath: "order", ascending: false)
         cell.recordingName.text = sortedAudioDatas[indexPath.row].titile
 
         let dateFormatter = DateFormatter()
