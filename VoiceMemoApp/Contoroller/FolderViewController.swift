@@ -130,8 +130,8 @@ extension FolderViewController: UITableViewDelegate {
             let audioData = sortedAudioDatas[indexPath.row]
             
             do {
-                let url = documentPath.appendingPathComponent("\(audioData.id).m4a")
-                try FileManager.default.removeItem(at: url)
+                //let url = documentPath.appendingPathComponent("\(audioData.id).m4a")
+                //try FileManager.default.removeItem(at: url)
                 try realm.write {
                     realm.delete(audioData)
                 }
@@ -140,6 +140,36 @@ extension FolderViewController: UITableViewDelegate {
             }
             tableView.deleteRows(at: [indexPath], with: .fade)
             tableView.reloadData()
+        }
+    }
+    
+    
+    //MARK: - TableViewCell Move
+    func tableView(_ tableView: UITableView, canMoveRowAt indexPath: IndexPath) -> Bool {
+        return true
+    }
+    func tableView(_ tableView: UITableView, moveRowAt sourceIndexPath: IndexPath, to destinationIndexPath: IndexPath) {
+        do {
+            try realm.write {
+                let sourceAD: AudioData = sortedAudioDatas[sourceIndexPath.row]
+                let destinationAD = sortedAudioDatas[destinationIndexPath.row]
+                let destinationADOrder = destinationAD.order
+                if sourceIndexPath.row < destinationIndexPath.row {
+                    for index in sourceIndexPath.row...destinationIndexPath.row {
+                        let ad = sortedAudioDatas[index]
+                        ad.order += 1
+                    }
+                } else {
+                    for index in (destinationIndexPath.row..<sourceIndexPath.row).reversed() {
+                        let ad = sortedAudioDatas[index]
+                        ad.order -= 1
+                    }
+                }
+                sourceAD.order = destinationADOrder
+                tableView.reloadData()
+            }
+        } catch {
+            print("DEBUG_ERRPR: TableViewCell 移動時")
         }
     }
 }
