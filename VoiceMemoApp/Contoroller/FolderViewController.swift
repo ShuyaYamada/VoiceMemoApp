@@ -14,6 +14,11 @@ class FolderViewController: UIViewController {
     let realm = try! Realm()
     var memoDataPrimaryKey: Int?
     var memoData: MemoData = MemoData()
+    var sortedAudioDatas: Results<AudioData> {
+        memoData.audioDatas.sorted(byKeyPath: "order", ascending: false)
+    }
+    var documentPath = FileManager.default.urls(for: .documentDirectory, in: .userDomainMask)[0]
+
 
     @IBOutlet weak var tableView: UITableView!
     @IBOutlet weak var folderTitleTextField: UITextField!
@@ -30,11 +35,18 @@ class FolderViewController: UIViewController {
         tableView.dataSource = self
         tableView.delegate = self
         
+        navigationItem.rightBarButtonItem = editButtonItem
+        
         if let data = realm.object(ofType: MemoData.self, forPrimaryKey: memoDataPrimaryKey) {
             memoData = data
         }
         folderTitleTextField.text = memoData.title
         contentTextView.text = memoData.content
+    }
+    
+    override func setEditing(_ editing: Bool, animated: Bool) {
+        super.setEditing(editing, animated: animated)
+        tableView.isEditing = editing
     }
     
     
@@ -91,11 +103,12 @@ extension FolderViewController {
 //MARK: - TableView DataSouce
 extension FolderViewController: UITableViewDataSource {
     func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
-        return memoData.audioDatas.count
+        return sortedAudioDatas.count
     }
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
         let cell = tableView.dequeueReusableCell(withIdentifier: "RecordingCell", for: indexPath) as! RecordingTableViewCell
-        cell.recordingName.text = memoData.audioDatas[indexPath.row].titile
+       // memoData.audioDatas.sorted(byKeyPath: "order", ascending: false)
+        cell.recordingName.text = sortedAudioDatas[indexPath.row].titile
         return cell
     }
 }
@@ -107,5 +120,26 @@ extension FolderViewController: UITableViewDelegate {
     //MARK: - TableViewCell Tapped
     func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
         performSegue(withIdentifier: "tappedRecordingSegue", sender: nil)
+    }
+    
+    
+    //MARK: - TableViewCell Delete
+    func tableView(_ tableView: UITableView, commit editingStyle: UITableViewCell.EditingStyle, forRowAt indexPath: IndexPath) {
+        if editingStyle == .delete {
+            
+            let audioData = sortedAudioDatas[indexPath.row]
+            
+            do {
+                let url = documentPath.appendingPathComponent("\(audioData.id).m4a")
+                try FileManager.default.removeItem(at: url)
+                try realm.write {
+                    realm.delete(audioData)
+                }
+            } catch {
+                print("DEBUG_ERROR: TableViewCell Delete時")
+            }
+            tableView.deleteRows(at: [indexPath], with: .fade)
+            tableView.reloadData()
+        }
     }
 }
