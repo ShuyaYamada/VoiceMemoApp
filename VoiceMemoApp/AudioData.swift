@@ -23,8 +23,7 @@ class AudioData: Object {
     //cellのexpandViewをコントロールするための値
     @objc dynamic var isClosed = true
     
-     //他のプロパティも追加予定
-    
+    let parentMemoData = LinkingObjects(fromType: MemoData.self, property: "audioDatas")
     
     override static func primaryKey() -> String {
         return "id"

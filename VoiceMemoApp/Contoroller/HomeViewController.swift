@@ -45,7 +45,7 @@ class HomeViewController: UIViewController {
             do {
                 try realm.write {
                     let indexPath = self.tableView.indexPathForSelectedRow!
-                    folderVC.memoData = memoDataArray[indexPath.row]
+                    folderVC.memoDataPrimaryKey = memoDataArray[indexPath.row].id
                 }
             } catch {
                 print("DEBUG_ERROR: 既存データでの遷移時")
@@ -61,7 +61,7 @@ class HomeViewController: UIViewController {
                         memoData.id = allMemoData.max(ofProperty: "id")! + 1
                     }
                     realm.add(memoData)
-                    folderVC.memoData = memoData
+                    folderVC.memoDataPrimaryKey = memoData.id
                 }
             } catch {
                 print("DEBUG_ERROR: 新規フォルダー作成時")

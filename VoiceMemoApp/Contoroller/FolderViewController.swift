@@ -12,13 +12,17 @@ import RealmSwift
 class FolderViewController: UIViewController {
     
     let realm = try! Realm()
-    var memoData: MemoData!
+    var memoDataPrimaryKey: Int?
+    var memoData: MemoData = MemoData()
 
     @IBOutlet weak var tableView: UITableView!
     @IBOutlet weak var folderTitleTextField: UITextField!
     @IBOutlet weak var contentTextView: UITextView!
-    
-    var recordings = ["testtesttesttesttesttesttesttesttesttest", "home", "pods", "ipad"]
+        
+    override func viewWillAppear(_ animated: Bool) {
+        super.viewWillAppear(animated)
+        tableView.reloadData()
+    }
     
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -26,6 +30,9 @@ class FolderViewController: UIViewController {
         tableView.dataSource = self
         tableView.delegate = self
         
+        if let data = realm.object(ofType: MemoData.self, forPrimaryKey: memoDataPrimaryKey) {
+            memoData = data
+        }
         folderTitleTextField.text = memoData.title
         contentTextView.text = memoData.content
     }
@@ -70,6 +77,7 @@ extension FolderViewController {
                     memoData.audioDatas.append(audioData)
                     let recordVC = segue.destination as! RecordViewController
                     recordVC.audioData = audioData
+                    tableView.reloadData()
                 }
             } catch {
                 print("DEBUG_ERROR: 新規AudioData作成時")
@@ -83,11 +91,11 @@ extension FolderViewController {
 //MARK: - TableView DataSouce
 extension FolderViewController: UITableViewDataSource {
     func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
-        return recordings.count
+        return memoData.audioDatas.count
     }
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
         let cell = tableView.dequeueReusableCell(withIdentifier: "RecordingCell", for: indexPath) as! RecordingTableViewCell
-        cell.recordingName.text = recordings[indexPath.row]
+        cell.recordingName.text = memoData.audioDatas[indexPath.row].titile
         return cell
     }
 }
