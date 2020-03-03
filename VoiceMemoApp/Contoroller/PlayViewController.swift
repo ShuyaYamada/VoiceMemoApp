@@ -12,8 +12,9 @@ import UIKit
 class PlayViewController: UIViewController {
     private let realm = try! Realm()
     var audioData: AudioData!
+    var audioDataBrain = AudioDataBrain()
 
-    @IBOutlet var recordingNameTextField: UITextField!
+    @IBOutlet var recordingTitleTextField: UITextField!
     @IBOutlet var recordingContentTextView: UITextView!
     @IBOutlet var timeLabel: UILabel!
     @IBOutlet var currentTimeLabel: UILabel!
@@ -21,28 +22,18 @@ class PlayViewController: UIViewController {
     override func viewDidLoad() {
         super.viewDidLoad()
 
-        recordingNameTextField.delegate = self
+        recordingTitleTextField.delegate = self
         recordingContentTextView.delegate = self
         setupToolBar()
 
-        recordingNameTextField.text = audioData.titile
+        recordingTitleTextField.text = audioData.titile
     }
 
     // MARK: - ViewDidDisappear with AudioData updating
 
     override func viewWillDisappear(_ animated: Bool) {
         super.viewWillDisappear(animated)
-        do {
-            try realm.write {
-                if recordingNameTextField.text == "" {
-                    audioData.titile = "Audio Data"
-                } else {
-                    audioData.titile = recordingNameTextField.text!
-                }
-            }
-        } catch {
-            print("DEBUG_ERROR: AudioData Update")
-        }
+        audioDataBrain.saveTitle(title: recordingTitleTextField.text!, data: audioData)
     }
 
     @IBAction func PlayAndPouseButtonPressed(_: UIButton) {}
