@@ -109,6 +109,14 @@ extension FolderViewController: UITableViewDataSource {
         let cell = tableView.dequeueReusableCell(withIdentifier: "RecordingCell", for: indexPath) as! RecordingTableViewCell
        // memoData.audioDatas.sorted(byKeyPath: "order", ascending: false)
         cell.recordingName.text = sortedAudioDatas[indexPath.row].titile
+        
+        let dateFormatter = DateFormatter()
+        dateFormatter.dateStyle = .medium
+        dateFormatter.timeStyle = .none
+        let dateString = dateFormatter.string(from: sortedAudioDatas[indexPath.row].date)
+        cell.dateLabel.text = dateString
+        
+        //cell.recordingTimeLabel.text = sortedAudioDatas[indexPath.row]. AudioDataにTimeLabelを追加したら
         return cell
     }
 }
