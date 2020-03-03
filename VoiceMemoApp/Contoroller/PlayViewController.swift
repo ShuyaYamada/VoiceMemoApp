@@ -21,6 +21,10 @@ class PlayViewController: UIViewController {
     override func viewDidLoad() {
         super.viewDidLoad()
 
+        recordingNameTextField.delegate = self
+        recordingContentTextView.delegate = self
+        setupToolBar()
+
         recordingNameTextField.text = audioData.titile
     }
 
@@ -46,4 +50,34 @@ class PlayViewController: UIViewController {
     @IBAction func skipButtonPressed(_: UIButton) {}
 
     @IBAction func rewindButtonPressed(_: UIButton) {}
+}
+
+// MARK: - TextField, TextViewのKeybordの設定
+
+extension PlayViewController: UITextFieldDelegate, UITextViewDelegate {
+    func textFieldShouldReturn(_ textField: UITextField) -> Bool {
+        textField.resignFirstResponder()
+        return true
+    }
+
+    func setupToolBar() {
+        // ツールバー生成
+        let toolBar = UIToolbar(frame: CGRect(x: 0, y: 0, width: 320, height: 40))
+        // スタイルを設定
+        toolBar.barStyle = UIBarStyle.default
+        // 画面幅に合わせてサイズを変更
+        toolBar.sizeToFit()
+        // 閉じるボタンを右に配置するためのスペース?
+        let spacer = UIBarButtonItem(barButtonSystemItem: UIBarButtonItem.SystemItem.flexibleSpace, target: self, action: nil)
+        // 閉じるボタン
+        let commitButton = UIBarButtonItem(barButtonSystemItem: UIBarButtonItem.SystemItem.done, target: self, action: #selector(commiButtonTapped))
+        // スペース、閉じるボタンを右側に配置
+        toolBar.items = [spacer, commitButton]
+        // textViewのキーボードにツールバーを設定
+        recordingContentTextView.inputAccessoryView = toolBar
+    }
+
+    @objc func commiButtonTapped() {
+        view.endEditing(true)
+    }
 }
