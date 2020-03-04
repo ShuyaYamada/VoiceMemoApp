@@ -11,6 +11,9 @@
 		9E329551240E415600669BF8 /* PlayViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9E329550240E415600669BF8 /* PlayViewController.swift */; };
 		9E329554240E73B400669BF8 /* AudioDataBrain.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9E329553240E73B400669BF8 /* AudioDataBrain.swift */; };
 		9E329556240E7A8B00669BF8 /* MemoDataBrain.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9E329555240E7A8B00669BF8 /* MemoDataBrain.swift */; };
+		9E5EE5C7240FB8C80025E3AF /* AudioManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9E5EE5C6240FB8C80025E3AF /* AudioManager.swift */; };
+		9E5EE5C9240FC9190025E3AF /* RecordStarted.wav in Resources */ = {isa = PBXBuildFile; fileRef = 9E5EE5C8240FC9190025E3AF /* RecordStarted.wav */; };
+		9E5EE5CB240FCA0E0025E3AF /* RecordEnd.wav in Resources */ = {isa = PBXBuildFile; fileRef = 9E5EE5CA240FCA0E0025E3AF /* RecordEnd.wav */; };
 		9E61601423154AB30000863D /* MemoData.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9E61601323154AB30000863D /* MemoData.swift */; };
 		9E8372E6240CE66E00E8A398 /* FolderViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9E8372E1240CE66E00E8A398 /* FolderViewController.swift */; };
 		9E8372E7240CE66E00E8A398 /* FolderCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9E8372E2240CE66E00E8A398 /* FolderCell.swift */; };
@@ -33,6 +36,9 @@
 		9E329550240E415600669BF8 /* PlayViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PlayViewController.swift; sourceTree = "<group>"; };
 		9E329553240E73B400669BF8 /* AudioDataBrain.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AudioDataBrain.swift; sourceTree = "<group>"; };
 		9E329555240E7A8B00669BF8 /* MemoDataBrain.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MemoDataBrain.swift; sourceTree = "<group>"; };
+		9E5EE5C6240FB8C80025E3AF /* AudioManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AudioManager.swift; sourceTree = "<group>"; };
+		9E5EE5C8240FC9190025E3AF /* RecordStarted.wav */ = {isa = PBXFileReference; lastKnownFileType = audio.wav; path = RecordStarted.wav; sourceTree = "<group>"; };
+		9E5EE5CA240FCA0E0025E3AF /* RecordEnd.wav */ = {isa = PBXFileReference; lastKnownFileType = audio.wav; path = RecordEnd.wav; sourceTree = "<group>"; };
 		9E61601323154AB30000863D /* MemoData.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MemoData.swift; sourceTree = "<group>"; };
 		9E8372E1240CE66E00E8A398 /* FolderViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = FolderViewController.swift; sourceTree = "<group>"; };
 		9E8372E2240CE66E00E8A398 /* FolderCell.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = FolderCell.swift; sourceTree = "<group>"; };
@@ -73,6 +79,8 @@
 		9E226C10240CEA2F00C35D92 /* Resouse */ = {
 			isa = PBXGroup;
 			children = (
+				9E5EE5C8240FC9190025E3AF /* RecordStarted.wav */,
+				9E5EE5CA240FCA0E0025E3AF /* RecordEnd.wav */,
 				9E97633C230F8D5700EBAED0 /* Assets.xcassets */,
 				9E97633E230F8D5700EBAED0 /* LaunchScreen.storyboard */,
 				9E976341230F8D5700EBAED0 /* Info.plist */,
@@ -85,6 +93,7 @@
 			children = (
 				9E329555240E7A8B00669BF8 /* MemoDataBrain.swift */,
 				9E329553240E73B400669BF8 /* AudioDataBrain.swift */,
+				9E5EE5C6240FB8C80025E3AF /* AudioManager.swift */,
 			);
 			path = Model;
 			sourceTree = "<group>";
@@ -219,10 +228,12 @@
 			isa = PBXResourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				9E5EE5C9240FC9190025E3AF /* RecordStarted.wav in Resources */,
 				9E976340230F8D5700EBAED0 /* LaunchScreen.storyboard in Resources */,
 				9E97633D230F8D5700EBAED0 /* Assets.xcassets in Resources */,
 				9ED6A1552312959200D44682 /* CustomCell.xib in Resources */,
 				9E97633B230F8D5600EBAED0 /* Main.storyboard in Resources */,
+				9E5EE5CB240FCA0E0025E3AF /* RecordEnd.wav in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -304,6 +315,7 @@
 				9E8372E7240CE66E00E8A398 /* FolderCell.swift in Sources */,
 				9E329556240E7A8B00669BF8 /* MemoDataBrain.swift in Sources */,
 				9E329554240E73B400669BF8 /* AudioDataBrain.swift in Sources */,
+				9E5EE5C7240FB8C80025E3AF /* AudioManager.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
