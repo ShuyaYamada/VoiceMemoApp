@@ -55,7 +55,6 @@ class MemoDataBrain {
     func saveTitle(data: MemoData, title: String, content: String) {
         do {
             try realm.write {
-                print(title)
                 if title == "" {
                     data.title = "Folder"
                 } else {

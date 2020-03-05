@@ -12,13 +12,12 @@ import UIKit
 class FolderViewController: UIViewController {
     let memoDataBrain = MemoDataBrain()
     let audioDataBrain = AudioDataBrain()
+    let audioManager = AudioManager()
     var memoDataPrimaryKey: Int?
     private var memoData: MemoData = MemoData()
     var sortedAudioDatas: Results<AudioData> {
         memoData.audioDatas.sorted(byKeyPath: "order", ascending: false)
     }
-
-    var documentPath = FileManager.default.urls(for: .documentDirectory, in: .userDomainMask)[0]
 
     @IBOutlet var tableView: UITableView!
     @IBOutlet var folderTitleTextField: UITextField!
@@ -87,13 +86,16 @@ extension FolderViewController: UITableViewDataSource {
 
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
         let cell = tableView.dequeueReusableCell(withIdentifier: "RecordingCell", for: indexPath) as! RecordingTableViewCell
-        cell.recordingName.text = sortedAudioDatas[indexPath.row].titile
+        let audioData = sortedAudioDatas[indexPath.row]
+        cell.recordingName.text = audioData.titile
 
         let dateFormatter = DateFormatter()
         dateFormatter.dateStyle = .medium
         dateFormatter.timeStyle = .none
-        let dateString = dateFormatter.string(from: sortedAudioDatas[indexPath.row].date)
+        let dateString = dateFormatter.string(from: audioData.date)
         cell.dateLabel.text = dateString
+
+        cell.recordingTimeLabel.text = audioDataBrain.getTimeString(data: audioData)
 
         // cell.recordingTimeLabel.text = sortedAudioDatas[indexPath.row]. AudioDataにTimeLabelを追加したら
         return cell
