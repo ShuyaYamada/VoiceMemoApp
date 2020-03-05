@@ -77,7 +77,13 @@ class AudioDataBrain {
             let duration: Double = floor(Double(audioFile.length) / sampleRate)
             let min: Double = floor(duration / 60)
             let sec: Double = duration - (min * 60)
-            timeString = "\(Int(min)):\(Int(sec))"
+            if sec < 10 {
+                timeString = "0\(Int(min)):0\(Int(sec))"
+            } else if sec >= 10, min < 10 {
+                timeString = "0\(Int(min)):\(Int(sec))"
+            } else {
+                timeString = "\(Int(min)):\(Int(sec))"
+            }
             return timeString
         } catch {
             print("DEBUG_ERROR: get audio time")

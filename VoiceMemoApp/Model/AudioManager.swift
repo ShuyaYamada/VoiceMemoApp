@@ -9,10 +9,15 @@
 import AVFoundation
 import Foundation
 
+protocol AudioManagerDelegate: class {
+    func didFinishPlaying()
+}
 
-class AudioManager {
+class AudioManager: NSObject, AVAudioPlayerDelegate {
     var recorder: AVAudioRecorder?
     var player: AVAudioPlayer?
+
+    weak var delegate: AudioManagerDelegate?
 
     // MARK: - マイク使用許可
 
@@ -83,16 +88,27 @@ extension AudioManager {
 
 extension AudioManager {
     func playerPlay(url: URL) {
-        do {
-            try player = AVAudioPlayer(contentsOf: url)
+        if player == nil {
+            do {
+                try player = AVAudioPlayer(contentsOf: url)
+                player?.delegate = self
+                player?.play()
+            } catch {
+                print("DEBUG_ERROR: get played")
+            }
+        } else {
             player?.play()
-        } catch {
-            print("DEBUG_ERROR: get played")
+            player?.delegate = self
         }
     }
 
     func playerPouse() {
         player?.pause()
+    }
+
+    func playerStop() {
+        player?.stop()
+        player = nil
     }
 
     func getAudioPlayerDuration(url: URL) -> Float {
@@ -126,5 +142,9 @@ extension AudioManager {
             timeString = "\(Int(min)):\(Int(sec))"
         }
         return timeString
+    }
+
+    func audioPlayerDidFinishPlaying(_: AVAudioPlayer, successfully _: Bool) {
+        delegate?.didFinishPlaying()
     }
 }

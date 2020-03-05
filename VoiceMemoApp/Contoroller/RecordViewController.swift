@@ -31,6 +31,7 @@ class RecordViewController: UIViewController {
 
         recordingTitleTextField.delegate = self
         contentTextView.delegate = self
+
         setupToolBar()
 
         isPermission = audioManager.isRecordPermission()

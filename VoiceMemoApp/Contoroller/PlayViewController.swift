@@ -9,7 +9,7 @@
 import RealmSwift
 import UIKit
 
-class PlayViewController: UIViewController {
+class PlayViewController: UIViewController, AudioManagerDelegate {
     private let realm = try! Realm()
     var audioData: AudioData!
     let audioDataBrain = AudioDataBrain()
@@ -32,6 +32,7 @@ class PlayViewController: UIViewController {
 
         recordingTitleTextField.delegate = self
         recordingContentTextView.delegate = self
+        audioManager.delegate = self
         setupToolBar()
 
         recordingTitleTextField.text = audioData.titile
@@ -64,12 +65,24 @@ class PlayViewController: UIViewController {
         }
     }
 
+    func didFinishPlaying() {
+        print("did finished recording")
+        isPlay = false
+        currentTimeLabel.text = "00:00"
+        slider.value = audioManager.getPlayerCurrentTime()
+        playAndPouseButton.setImage(UIImage(named: "PlayButton"), for: .normal)
+        slideValueTimer.invalidate()
+        currentTimeTimer.invalidate()
+        audioManager.playerStop()
+    }
+
     @IBAction func skipButtonPressed(_: UIButton) {}
 
     @IBAction func rewindButtonPressed(_: UIButton) {}
 
     @IBAction func sliderValueChanged(_: UISlider) {
         audioManager.setPlayerCurrentTime(time: TimeInterval(slider.value))
+        currentTimeLabel.text = audioManager.getCurrentTimeString()
     }
 
     @objc func sliderValueCount(_: Timer!) {
