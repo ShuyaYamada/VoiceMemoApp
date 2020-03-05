@@ -13,6 +13,9 @@ class PlayViewController: UIViewController {
     private let realm = try! Realm()
     var audioData: AudioData!
     let audioDataBrain = AudioDataBrain()
+    let audioManager = AudioManager()
+    private let documentPath = FileManager.default.urls(for: .documentDirectory, in: .userDomainMask)[0]
+    private var url: URL?
 
     @IBOutlet var recordingTitleTextField: UITextField!
     @IBOutlet var recordingContentTextView: UITextView!
@@ -27,6 +30,9 @@ class PlayViewController: UIViewController {
         setupToolBar()
 
         recordingTitleTextField.text = audioData.titile
+
+        url = documentPath.appendingPathComponent("\(audioData.id).m4a")
+        timeLabel.text = audioDataBrain.getTimeString(data: audioData)
     }
 
     // MARK: - ViewDidDisappear with AudioData updating
