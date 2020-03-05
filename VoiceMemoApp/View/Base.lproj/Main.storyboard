@@ -94,7 +94,7 @@
             <objects>
                 <viewController id="Y9X-D7-fht" customClass="FolderViewController" customModule="VoiceMemoApp" customModuleProvider="target" sceneMemberID="viewController">
                     <view key="view" contentMode="scaleToFill" id="Pzj-2w-Iy5">
-                        <rect key="frame" x="0.0" y="0.0" width="375" height="562.5"/>
+                        <rect key="frame" x="0.0" y="0.0" width="375" height="563"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <subviews>
                             <tableView clipsSubviews="YES" contentMode="scaleToFill" alwaysBounceVertical="YES" dataMode="prototypes" style="plain" separatorStyle="default" rowHeight="100" estimatedRowHeight="-1" sectionHeaderHeight="28" sectionFooterHeight="28" translatesAutoresizingMaskIntoConstraints="NO" id="Oem-HO-a3y">
@@ -267,7 +267,7 @@
             <objects>
                 <viewController id="3KJ-ak-QBy" customClass="PlayViewController" customModule="VoiceMemoApp" customModuleProvider="target" sceneMemberID="viewController">
                     <view key="view" contentMode="scaleToFill" id="eWw-r4-bhx">
-                        <rect key="frame" x="0.0" y="0.0" width="375" height="562.5"/>
+                        <rect key="frame" x="0.0" y="0.0" width="375" height="563"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <subviews>
                             <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="8fO-q7-lwl">
@@ -311,6 +311,9 @@
                             </label>
                             <slider opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" value="0.5" minValue="-0.5" maxValue="1.5" translatesAutoresizingMaskIntoConstraints="NO" id="suf-gd-wJM">
                                 <rect key="frame" x="-2" y="436" width="379" height="31"/>
+                                <connections>
+                                    <action selector="sliderValueChanged:" destination="3KJ-ak-QBy" eventType="valueChanged" id="HEV-jF-jPn"/>
+                                </connections>
                             </slider>
                             <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="3:13" textAlignment="right" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="ujj-Zd-B78">
                                 <rect key="frame" x="187.5" y="466" width="187.5" height="14.5"/>
@@ -382,8 +385,10 @@
                     <navigationItem key="navigationItem" id="Y68-05-lMd"/>
                     <connections>
                         <outlet property="currentTimeLabel" destination="NOl-oR-eIP" id="KKL-cc-qhf"/>
+                        <outlet property="playAndPouseButton" destination="8fO-q7-lwl" id="vbx-38-HYt"/>
                         <outlet property="recordingContentTextView" destination="N6t-2p-TJ0" id="4Df-ha-zpD"/>
                         <outlet property="recordingTitleTextField" destination="ida-Y2-urI" id="mCy-lA-G7G"/>
+                        <outlet property="slider" destination="suf-gd-wJM" id="iiX-f3-vmY"/>
                         <outlet property="timeLabel" destination="ujj-Zd-B78" id="dWR-qc-7SB"/>
                     </connections>
                 </viewController>
@@ -396,7 +401,7 @@
             <objects>
                 <viewController id="sbZ-ev-gBo" customClass="RecordViewController" customModule="VoiceMemoApp" customModuleProvider="target" sceneMemberID="viewController">
                     <view key="view" contentMode="scaleToFill" id="byg-7S-OmV">
-                        <rect key="frame" x="0.0" y="0.0" width="375" height="562.5"/>
+                        <rect key="frame" x="0.0" y="0.0" width="375" height="563"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <subviews>
                             <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="tZI-QI-9g9">

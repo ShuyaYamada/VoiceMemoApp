@@ -14,8 +14,9 @@ class RecordViewController: UIViewController {
     private let audioDataBrain = AudioDataBrain()
     private let audioManager = AudioManager()
     private let documentPath = FileManager.default.urls(for: .documentDirectory, in: .userDomainMask)[0]
-    private var url: URL?
+    var url: URL?
     private var isRecord = false
+    private var isPermission = false
     private var counter = 0
     private var timer = Timer()
 
@@ -32,6 +33,7 @@ class RecordViewController: UIViewController {
         contentTextView.delegate = self
         setupToolBar()
 
+        isPermission = audioManager.isRecordPermission()
         url = documentPath.appendingPathComponent("\(audioData.id).m4a")
         recordingTitleTextField.text = audioData.titile
 
