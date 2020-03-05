@@ -126,6 +126,14 @@ extension AudioManager {
         player?.currentTime = time
     }
 
+    func incrementCurrentTime() {
+        player?.currentTime += 5
+    }
+
+    func decrementCurrentTime() {
+        player?.currentTime -= 5
+    }
+
     func getPlayerCurrentTime() -> Float {
         return Float(player!.currentTime)
     }

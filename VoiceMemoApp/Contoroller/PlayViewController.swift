@@ -76,9 +76,13 @@ class PlayViewController: UIViewController, AudioManagerDelegate {
         audioManager.playerStop()
     }
 
-    @IBAction func skipButtonPressed(_: UIButton) {}
+    @IBAction func skipButtonPressed(_: UIButton) {
+        audioManager.incrementCurrentTime()
+    }
 
-    @IBAction func rewindButtonPressed(_: UIButton) {}
+    @IBAction func rewindButtonPressed(_: UIButton) {
+        audioManager.decrementCurrentTime()
+    }
 
     @IBAction func sliderValueChanged(_: UISlider) {
         audioManager.setPlayerCurrentTime(time: TimeInterval(slider.value))
