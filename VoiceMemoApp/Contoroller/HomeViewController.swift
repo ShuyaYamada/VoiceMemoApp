@@ -29,6 +29,7 @@ class HomeViewController: UIViewController {
         tableView.delegate = self
 
         navigationItem.rightBarButtonItem = editButtonItem
+        navigationItem.title = NSLocalizedString("navigationBarTitleKey", comment: "")
 
         memoDataArray = memoDataBrain.getAllMemoData()
     }

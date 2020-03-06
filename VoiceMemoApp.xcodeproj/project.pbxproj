@@ -25,8 +25,11 @@
 		9E97633D230F8D5700EBAED0 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 9E97633C230F8D5700EBAED0 /* Assets.xcassets */; };
 		9E976340230F8D5700EBAED0 /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 9E97633E230F8D5700EBAED0 /* LaunchScreen.storyboard */; };
 		9E976348230F8EC900EBAED0 /* AudioData.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9E976347230F8EC900EBAED0 /* AudioData.swift */; };
+		9E9A8DAD2411F7BD0007DFF3 /* strings.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9E9A8DAC2411F7BD0007DFF3 /* strings.swift */; };
+		9E9A8DAF2411FA010007DFF3 /* Assets.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9E9A8DAE2411FA000007DFF3 /* Assets.swift */; };
 		9ED6A1542312959200D44682 /* CustomCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9ED6A1522312959200D44682 /* CustomCell.swift */; };
 		9ED6A1552312959200D44682 /* CustomCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = 9ED6A1532312959200D44682 /* CustomCell.xib */; };
+		9EEBA5392411DB0000180AC6 /* Localizable.strings in Resources */ = {isa = PBXBuildFile; fileRef = 9EEBA5382411DB0000180AC6 /* Localizable.strings */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -52,8 +55,11 @@
 		9E97633F230F8D5700EBAED0 /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/LaunchScreen.storyboard; sourceTree = "<group>"; };
 		9E976341230F8D5700EBAED0 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		9E976347230F8EC900EBAED0 /* AudioData.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AudioData.swift; sourceTree = "<group>"; };
+		9E9A8DAC2411F7BD0007DFF3 /* strings.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = strings.swift; sourceTree = "<group>"; };
+		9E9A8DAE2411FA000007DFF3 /* Assets.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Assets.swift; sourceTree = "<group>"; };
 		9ED6A1522312959200D44682 /* CustomCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CustomCell.swift; sourceTree = "<group>"; };
 		9ED6A1532312959200D44682 /* CustomCell.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = CustomCell.xib; sourceTree = "<group>"; };
+		9EEBA5382411DB0000180AC6 /* Localizable.strings */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; path = Localizable.strings; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -84,6 +90,7 @@
 				9E97633C230F8D5700EBAED0 /* Assets.xcassets */,
 				9E97633E230F8D5700EBAED0 /* LaunchScreen.storyboard */,
 				9E976341230F8D5700EBAED0 /* Info.plist */,
+				9EEBA5382411DB0000180AC6 /* Localizable.strings */,
 			);
 			path = Resouse;
 			sourceTree = "<group>";
@@ -148,9 +155,19 @@
 				9E61601323154AB30000863D /* MemoData.swift */,
 				9E976347230F8EC900EBAED0 /* AudioData.swift */,
 				9ED6A1532312959200D44682 /* CustomCell.xib */,
+				9E9A8DAB2411F7670007DFF3 /* Generated */,
 				9E226C10240CEA2F00C35D92 /* Resouse */,
 			);
 			path = VoiceMemoApp;
+			sourceTree = "<group>";
+		};
+		9E9A8DAB2411F7670007DFF3 /* Generated */ = {
+			isa = PBXGroup;
+			children = (
+				9E9A8DAE2411FA000007DFF3 /* Assets.swift */,
+				9E9A8DAC2411F7BD0007DFF3 /* strings.swift */,
+			);
+			path = Generated;
 			sourceTree = "<group>";
 		};
 		C756854BA79431AE5133BF0B /* Pods */ = {
@@ -174,7 +191,8 @@
 				9E97632F230F8D5600EBAED0 /* Frameworks */,
 				9E976330230F8D5600EBAED0 /* Resources */,
 				F93C4147D2B129F2E632E398 /* [CP] Embed Pods Frameworks */,
-				9E32954F240E2C1B00669BF8 /* ShellScript */,
+				9E32954F240E2C1B00669BF8 /* SwiftFormat */,
+				9E8A90932411F40B00604768 /* SwiftGen */,
 			);
 			buildRules = (
 			);
@@ -231,6 +249,7 @@
 				9E5EE5C9240FC9190025E3AF /* RecordStarted.wav in Resources */,
 				9E976340230F8D5700EBAED0 /* LaunchScreen.storyboard in Resources */,
 				9E97633D230F8D5700EBAED0 /* Assets.xcassets in Resources */,
+				9EEBA5392411DB0000180AC6 /* Localizable.strings in Resources */,
 				9ED6A1552312959200D44682 /* CustomCell.xib in Resources */,
 				9E97633B230F8D5600EBAED0 /* Main.storyboard in Resources */,
 				9E5EE5CB240FCA0E0025E3AF /* RecordEnd.wav in Resources */,
@@ -262,7 +281,7 @@
 			shellScript = "diff \"${PODS_PODFILE_DIR_PATH}/Podfile.lock\" \"${PODS_ROOT}/Manifest.lock\" > /dev/null\nif [ $? != 0 ] ; then\n    # print error to STDERR\n    echo \"error: The sandbox is not in sync with the Podfile.lock. Run 'pod install' or update your CocoaPods installation.\" >&2\n    exit 1\nfi\n# This output is used by Xcode 'outputs' to avoid re-running this script phase.\necho \"SUCCESS\" > \"${SCRIPT_OUTPUT_FILE_0}\"\n";
 			showEnvVarsInLog = 0;
 		};
-		9E32954F240E2C1B00669BF8 /* ShellScript */ = {
+		9E32954F240E2C1B00669BF8 /* SwiftFormat */ = {
 			isa = PBXShellScriptBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
@@ -271,6 +290,7 @@
 			);
 			inputPaths = (
 			);
+			name = SwiftFormat;
 			outputFileListPaths = (
 			);
 			outputPaths = (
@@ -278,6 +298,24 @@
 			runOnlyForDeploymentPostprocessing = 0;
 			shellPath = /bin/sh;
 			shellScript = "# Type a script or drag a script file from your workspace to insert its path.\nif [ $CONFIGURATION = \"Debug\" ]; then\n\"${PODS_ROOT}/SwiftFormat/CommandLineTool/swiftformat\" .\nfi\n";
+		};
+		9E8A90932411F40B00604768 /* SwiftGen */ = {
+			isa = PBXShellScriptBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			inputFileListPaths = (
+			);
+			inputPaths = (
+			);
+			name = SwiftGen;
+			outputFileListPaths = (
+			);
+			outputPaths = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+			shellPath = /bin/sh;
+			shellScript = "# Type a script or drag a script file from your workspace to insert its path.\n\"$PODS_ROOT\"/SwiftGen/bin/swiftgen\n";
 		};
 		F93C4147D2B129F2E632E398 /* [CP] Embed Pods Frameworks */ = {
 			isa = PBXShellScriptBuildPhase;
@@ -311,10 +349,12 @@
 				9E8372EA240CE66E00E8A398 /* RecordViewController.swift in Sources */,
 				9E8372E8240CE66E00E8A398 /* HomeViewController.swift in Sources */,
 				9ED6A1542312959200D44682 /* CustomCell.swift in Sources */,
+				9E9A8DAF2411FA010007DFF3 /* Assets.swift in Sources */,
 				9E976336230F8D5600EBAED0 /* AppDelegate.swift in Sources */,
 				9E8372E7240CE66E00E8A398 /* FolderCell.swift in Sources */,
 				9E329556240E7A8B00669BF8 /* MemoDataBrain.swift in Sources */,
 				9E329554240E73B400669BF8 /* AudioDataBrain.swift in Sources */,
+				9E9A8DAD2411F7BD0007DFF3 /* strings.swift in Sources */,
 				9E5EE5C7240FB8C80025E3AF /* AudioManager.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
