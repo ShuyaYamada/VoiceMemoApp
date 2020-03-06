@@ -27,6 +27,7 @@
 		9E976348230F8EC900EBAED0 /* AudioData.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9E976347230F8EC900EBAED0 /* AudioData.swift */; };
 		9ED6A1542312959200D44682 /* CustomCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9ED6A1522312959200D44682 /* CustomCell.swift */; };
 		9ED6A1552312959200D44682 /* CustomCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = 9ED6A1532312959200D44682 /* CustomCell.xib */; };
+		9EEBA5392411DB0000180AC6 /* Localizable.strings in Resources */ = {isa = PBXBuildFile; fileRef = 9EEBA5382411DB0000180AC6 /* Localizable.strings */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -54,6 +55,7 @@
 		9E976347230F8EC900EBAED0 /* AudioData.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AudioData.swift; sourceTree = "<group>"; };
 		9ED6A1522312959200D44682 /* CustomCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CustomCell.swift; sourceTree = "<group>"; };
 		9ED6A1532312959200D44682 /* CustomCell.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = CustomCell.xib; sourceTree = "<group>"; };
+		9EEBA5382411DB0000180AC6 /* Localizable.strings */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; path = Localizable.strings; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -84,6 +86,7 @@
 				9E97633C230F8D5700EBAED0 /* Assets.xcassets */,
 				9E97633E230F8D5700EBAED0 /* LaunchScreen.storyboard */,
 				9E976341230F8D5700EBAED0 /* Info.plist */,
+				9EEBA5382411DB0000180AC6 /* Localizable.strings */,
 			);
 			path = Resouse;
 			sourceTree = "<group>";
@@ -231,6 +234,7 @@
 				9E5EE5C9240FC9190025E3AF /* RecordStarted.wav in Resources */,
 				9E976340230F8D5700EBAED0 /* LaunchScreen.storyboard in Resources */,
 				9E97633D230F8D5700EBAED0 /* Assets.xcassets in Resources */,
+				9EEBA5392411DB0000180AC6 /* Localizable.strings in Resources */,
 				9ED6A1552312959200D44682 /* CustomCell.xib in Resources */,
 				9E97633B230F8D5600EBAED0 /* Main.storyboard in Resources */,
 				9E5EE5CB240FCA0E0025E3AF /* RecordEnd.wav in Resources */,
