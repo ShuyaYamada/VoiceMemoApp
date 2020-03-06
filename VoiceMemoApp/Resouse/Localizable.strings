@@ -6,4 +6,6 @@
   Copyright © 2020 ShuyaYamada. All rights reserved.
 */
 
-"navigationBarTitleKey" = "フォルダー";
+"navigationBarTitleKey" = "テキボイメモ";
+"MemoDataSampleTitle" = "新規フォルダ";
+

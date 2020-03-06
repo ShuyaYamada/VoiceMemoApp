@@ -1,0 +1,11 @@
+strings:
+  inputs: VoiceMemoApp/Resouse/Localizable.strings
+  outputs:
+    - templateName: structured-swift4
+      output: VoiceMemoApp/Generated/strings.swift
+      
+xcassets:
+  inputs: VoiceMemoApp/Resouse/Assets.xcassets
+  outputs:
+    templateName: swift4
+    output: VoiceMemoApp/Generated/Assets.swift
